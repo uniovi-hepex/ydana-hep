@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Base API" href="base.html" />
+    <link rel="prev" title="histograms guide" href="../guides/histograms_yaml.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base.html">Base API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com:uniovi-hepex/ydana-hep/ydana-hep" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<p>This section is generated from YDANA-HEP docstrings. It is the authoritative API
+reference for modules and classes.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.config.get_run_config"><code class="docutils literal notranslate"><span class="pre">get_run_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.config.set_run_config"><code class="docutils literal notranslate"><span class="pre">set_run_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#overview">Overview:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.ntuple.NTuple"><code class="docutils literal notranslate"><span class="pre">NTuple</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#module-level-functions">Module-level functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#lazy-fill-mechanics">Lazy fill mechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#per-partition-fill">Per-partition fill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.histos.Histogram"><code class="docutils literal notranslate"><span class="pre">Histogram</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.histos.expand"><code class="docutils literal notranslate"><span class="pre">expand()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.histos.from_config"><code class="docutils literal notranslate"><span class="pre">from_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.histos.to_root"><code class="docutils literal notranslate"><span class="pre">to_root()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.histos.fill"><code class="docutils literal notranslate"><span class="pre">fill()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#what-it-does">What it does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#config-injection">Config injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.schema.YAMLSchema"><code class="docutils literal notranslate"><span class="pre">YAMLSchema</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#topological-ordering">Topological ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#step-semantics">Step semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#step-definition-keys">Step definition keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.pipeline.topological_sort"><code class="docutils literal notranslate"><span class="pre">topological_sort()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.pipeline.execute_pipeline"><code class="docutils literal notranslate"><span class="pre">execute_pipeline()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.io.dump_to_parquet"><code class="docutils literal notranslate"><span class="pre">dump_to_parquet()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.io.dump_to_root"><code class="docutils literal notranslate"><span class="pre">dump_to_root()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.event.EventRecord"><code class="docutils literal notranslate"><span class="pre">EventRecord</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.particle.ParticleRecord"><code class="docutils literal notranslate"><span class="pre">ParticleRecord</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html#ydana.base.particle.ParticleArray"><code class="docutils literal notranslate"><span class="pre">ParticleArray</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#output-formats">Output formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#per-partition-output">Per-partition output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#multiple-datasets">Multiple datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#parallelism">Parallelism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#ydana.analysis.events_dumper.dump_events"><code class="docutils literal notranslate"><span class="pre">dump_events()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#output-formatting">Output formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#id1">Per-partition output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#id2">Multiple datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#id3">Parallelism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#ydana.analysis.histos_filler.fill_histos"><code class="docutils literal notranslate"><span class="pre">fill_histos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#typical-workflow">Typical workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#ydana.analysis.histos_merger.merge_histos"><code class="docutils literal notranslate"><span class="pre">merge_histos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#id4">Typical workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#ydana.analysis.roots_merger.merge_roots"><code class="docutils literal notranslate"><span class="pre">merge_roots()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#ydana.cli.add_arguments"><code class="docutils literal notranslate"><span class="pre">add_arguments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#ydana.cli.create_wrapper"><code class="docutils literal notranslate"><span class="pre">create_wrapper()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#ydana.cli.add_subcommands"><code class="docutils literal notranslate"><span class="pre">add_subcommands()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#ydana.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../guides/histograms_yaml.html" class="btn btn-neutral float-left" title="histograms guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="base.html" class="btn btn-neutral float-right" title="Base API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YAML Basics &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Core Concepts" href="../core_concepts/index.html" />
+    <link rel="prev" title="First steps" href="first_steps.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first_steps.html">First steps</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">YAML Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-config">Main config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datasets-filesets-yaml">Datasets — <code class="docutils literal notranslate"><span class="pre">filesets.yaml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mapping-branches-schema-yaml">Mapping branches — <code class="docutils literal notranslate"><span class="pre">schema.yaml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-transforms-pre-steps-yaml">Defining transforms — <code class="docutils literal notranslate"><span class="pre">pre_steps.yaml</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#declaring-histograms-histograms-yaml">Declaring histograms — <code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Getting started</a></li>
+      <li class="breadcrumb-item active">YAML Basics</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com:uniovi-hepex/ydana-hep/ydana-hep" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="yaml-basics">
+<h1>YAML Basics<a class="headerlink" href="#yaml-basics" title="Link to this heading"></a></h1>
+<p>YDANA-HEP entire behavior is encoded throug <code class="docutils literal notranslate"><span class="pre">yaml</span></code> files. It is possible to have a single top-level
+config file that composes smaller YAML files through <code class="docutils literal notranslate"><span class="pre">!include</span></code> directives.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#main-config" id="id1">Main config</a></p></li>
+<li><p><a class="reference internal" href="#datasets-filesets-yaml" id="id2">Datasets — <code class="docutils literal notranslate"><span class="pre">filesets.yaml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#mapping-branches-schema-yaml" id="id3">Mapping branches — <code class="docutils literal notranslate"><span class="pre">schema.yaml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#defining-transforms-pre-steps-yaml" id="id4">Defining transforms — <code class="docutils literal notranslate"><span class="pre">pre_steps.yaml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#declaring-histograms-histograms-yaml" id="id5">Declaring histograms — <code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code></a></p></li>
+</ul>
+</nav>
+<section id="main-config">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Main config</a><a class="headerlink" href="#main-config" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">run_config.yaml</span></code> is the entry-point passed to every CLI command via <code class="docutils literal notranslate"><span class="pre">-cf</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># run_config.yaml</span>
+<span class="nt">filesets</span><span class="p">:</span><span class="w">   </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesets.yaml</span><span class="w">     </span><span class="c1"># ← named datasets</span>
+<span class="nt">Schema</span><span class="p">:</span><span class="w">     </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">schema.yaml</span><span class="w">       </span><span class="c1"># ← branch-to-field mapping</span>
+<span class="nt">pre-steps</span><span class="p">:</span><span class="w">  </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pre_steps.yaml</span><span class="w">    </span><span class="c1"># ← ordered transforms</span>
+<span class="nt">histograms</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histograms.yaml</span><span class="w">   </span><span class="c1"># ← what to fill</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">!include</span></code> helps to keep each concern in its own file. You can also inline any
+section directly if you prefer a single-file config.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>YAML loading is managed by <a class="reference internal" href="../reference/base.html#ydana.base.config.Config" title="ydana.base.config.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.config.Config</span></code></a>, which resolves
+<code class="docutils literal notranslate"><span class="pre">!include</span></code> directives and stores top-level keys as attributes on the config
+object. At runtime, the active configuration is exposed through the singleton
+<code class="docutils literal notranslate"><span class="pre">RUN_CONFIG</span></code> (see <a class="reference internal" href="../reference/base.html#ydana.base.config.get_run_config" title="ydana.base.config.get_run_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.config.get_run_config()</span></code></a>).</p>
+<p>For programmatic usage, you can set it explicitly with
+<a class="reference internal" href="../reference/base.html#ydana.base.config.set_run_config" title="ydana.base.config.set_run_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.config.set_run_config()</span></code></a>, passing either a custom
+<a class="reference internal" href="../reference/base.html#ydana.base.config.Config" title="ydana.base.config.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.config.Config</span></code></a> instance or a config-file path.</p>
+<p>For deeper details on lifecycle and access patterns, see
+<a class="reference internal" href="../core_concepts/yaml_driven_workflow.html"><span class="doc">YAML-Driven Workflow</span></a>.</p>
+</div>
+</section>
+<section id="datasets-filesets-yaml">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Datasets — <code class="docutils literal notranslate"><span class="pre">filesets.yaml</span></code></a><a class="headerlink" href="#datasets-filesets-yaml" title="Link to this heading"></a></h2>
+<p>Each top-level key is a <em>dataset name</em> used as an output tag and as a key in
+the multi-dataset <code class="docutils literal notranslate"><span class="pre">ntuple.events</span></code> dict. Sintax try to follow standard coffea’s fileset definition.
+<code class="docutils literal notranslate"><span class="pre">xroot</span></code>, <code class="docutils literal notranslate"><span class="pre">https</span></code>, and <code class="docutils literal notranslate"><span class="pre">DAS</span></code> datasets are not soported yet for the YDANA-HEP files resolver.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">DY</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">treename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dtNtupleProducer/DTTREE&quot;</span><span class="w">   </span><span class="c1"># ROOT TTree path</span>
+<span class="w">  </span><span class="nt">files</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;../ntuples/DY/DTDPGNtuple_*.root&quot;</span><span class="w">  </span><span class="c1"># glob patterns accepted</span>
+<span class="w">  </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DY</span><span class="nv"> </span><span class="s">—</span><span class="nv"> </span><span class="s">Phase2</span><span class="nv"> </span><span class="s">WShower</span><span class="nv"> </span><span class="s">simulation&quot;</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;15_1_0_pre2&quot;</span>
+
+<span class="nt">Zprime</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">treename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dtNtupleProducer/DTTREE&quot;</span>
+<span class="w">  </span><span class="nt">files</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;../ntuples/Zprime/DTDPGNtuple_*.root&quot;</span>
+<span class="w">  </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Z&#39;</span><span class="nv"> </span><span class="s">—</span><span class="nv"> </span><span class="s">Phase2</span><span class="nv"> </span><span class="s">Concentrator</span><span class="nv"> </span><span class="s">simulation&quot;</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;12_4_2&quot;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">metadata</span></code> is arbitrary user data attached to <code class="docutils literal notranslate"><span class="pre">ntuple.metadata[&quot;DY&quot;]</span></code>
+at runtime — useful for labels and provenance tracking.</p>
+</section>
+<section id="mapping-branches-schema-yaml">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Mapping branches — <code class="docutils literal notranslate"><span class="pre">schema.yaml</span></code></a><a class="headerlink" href="#mapping-branches-schema-yaml" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Schema</span></code> section tells YDANA-HEP how to group ROOT branches into named record
+fields.</p>
+<p>This configuration allows user to specifically indicated how to group each branch into collections, this is suported throug the customed YDANASchema class. This
+design aims to mitigate possible scenerios where tradition coffea schemas don’t load data as you wish, but,
+you can always still indicated standard schemas passing <code class="docutils literal notranslate"><span class="pre">Schema:</span> <span class="pre">[coffea</span> <span class="pre">schema</span> <span class="pre">name]</span></code>. If not provided,
+<code class="docutils literal notranslate"><span class="pre">BaseSchema</span></code> is tried by default.</p>
+<p>Multiple schema by dataset are suported by specifiing in each fileset the <code class="docutils literal notranslate"><span class="pre">schema</span></code> filed. The follow is a simple example.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Event-level scalars</span>
+<span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;event_eventNumber&quot;</span><span class="w">   </span><span class="c1"># key: &quot;branch_name&quot;</span>
+
+<span class="c1"># Particle collections — each attribute maps to one ROOT branch</span>
+<span class="nt">genmuons</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pt</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;gen_pt&quot;</span>
+<span class="w">  </span><span class="nt">eta</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;gen_eta&quot;</span>
+<span class="w">  </span><span class="nt">phi</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;gen_phi&quot;</span>
+<span class="w">  </span><span class="nt">charge</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gen_charge&quot;</span>
+<span class="w">  </span><span class="nt">pdgId</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;gen_pdgId&quot;</span>
+
+<span class="nt">tps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">wh</span><span class="p">:</span><span class="w">      </span><span class="s">&quot;ph2TpgPhiEmuAm_wheel&quot;</span>
+<span class="w">  </span><span class="nt">quality</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ph2TpgPhiEmuAm_quality&quot;</span>
+<span class="w">  </span><span class="nt">BX</span><span class="p">:</span><span class="w">      </span><span class="s">&quot;ph2TpgPhiEmuAm_BX&quot;</span>
+<span class="w">  </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>After loading, <code class="docutils literal notranslate"><span class="pre">event.genmuons.pt</span></code> is a <code class="docutils literal notranslate"><span class="pre">dask_awkward.Array</span></code> of shape <code class="docutils literal notranslate"><span class="pre">nevents</span> <span class="pre">*</span> <span class="pre">nmuons</span></code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Fields can also be constants (integers) rather than branch names.</p>
+</div>
+</section>
+<section id="defining-transforms-pre-steps-yaml">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Defining transforms — <code class="docutils literal notranslate"><span class="pre">pre_steps.yaml</span></code></a><a class="headerlink" href="#defining-transforms-pre-steps-yaml" title="Link to this heading"></a></h2>
+<p>Pre-steps are ordered transformations. YDANA-HEP resolves execution order
+automatically from <code class="docutils literal notranslate"><span class="pre">needs:</span></code> declarations via
+<a class="reference internal" href="../reference/base.html#ydana.base.pipeline.topological_sort" title="ydana.base.pipeline.topological_sort"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.pipeline.topological_sort()</span></code></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Level 0 — no dependencies</span>
+<span class="nt">compute-digi-BX</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">preprocessor</span>
+<span class="w">  </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;events[&#39;digis&#39;]</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">ak.with_field(events[&#39;digis&#39;],</span>
+<span class="w">                                          </span><span class="s">events[&#39;digis&#39;][&#39;time&#39;]</span><span class="nv"> </span><span class="s">//</span><span class="nv"> </span><span class="s">25,</span><span class="nv"> </span><span class="s">&#39;BX&#39;)&quot;</span>
+
+<span class="nt">select-has-genmuons</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">selector</span>
+<span class="w">  </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ak.num(events[&#39;genmuons&#39;])</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">1&quot;</span>
+
+<span class="c1"># Level 1 — only runs after select-has-genmuons</span>
+<span class="nt">compute-muon-DR</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">preprocessor</span>
+<span class="w">  </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;preprocessors.add_genmuon_dR&quot;</span><span class="w">   </span><span class="c1"># dotted import path</span>
+<span class="w">  </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">select-has-genmuons</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Step semantics at a glance:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">target</span></code></p></th>
+<th class="head"><p>What happens</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>selector</p></td>
+<td><p><em>(absent)</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">events</span> <span class="pre">=</span> <span class="pre">events[fn(events)]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>selector</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;tps&quot;</span></code></p></td>
+<td><p>Filter the <code class="docutils literal notranslate"><span class="pre">tps</span></code> collection per-event</p></td>
+</tr>
+<tr class="row-even"><td><p>preprocessor</p></td>
+<td><p><em>(any)</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fn(events)</span></code> mutates <code class="docutils literal notranslate"><span class="pre">events</span></code> in-place</p></td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="../core_concepts/yaml_driven_workflow.html"><span class="doc">YAML-Driven Workflow</span></a> for a full pipeline diagram.</p>
+</section>
+<section id="declaring-histograms-histograms-yaml">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Declaring histograms — <code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code></a><a class="headerlink" href="#declaring-histograms-histograms-yaml" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">histo_sources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histograms</span><span class="w">            </span><span class="c1"># importable Python module defining a `histos` list</span>
+
+<span class="nt">histo_names</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_pt</span><span class="w">        </span><span class="c1"># must match Histogram(name=...) in the module</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_eta</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">muon_DR</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Muon_pt20_eff</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">histo_sources</span></code> lists importable Python modules that each define a <code class="docutils literal notranslate"><span class="pre">histos</span></code>
+list of <a class="reference internal" href="../reference/base.html#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.histos.Histogram</span></code></a> objects. The names in
+<code class="docutils literal notranslate"><span class="pre">histo_names</span></code> must exist in at least one of those modules.</p>
+<p>See <a class="reference internal" href="../guides/histograms_yaml.html"><span class="doc">histograms guide</span></a> for the full histogram definition guide.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="first_steps.html" class="btn btn-neutral float-left" title="First steps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../core_concepts/index.html" class="btn btn-neutral float-right" title="Core Concepts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

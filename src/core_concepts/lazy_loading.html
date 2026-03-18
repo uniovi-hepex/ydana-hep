@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lazy Loading &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Lazy Execution: Triggering the Graph" href="lazy_execution.html" />
+    <link rel="prev" title="YAML-Driven Workflow" href="yaml_driven_workflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Concepts</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="yaml_driven_workflow.html">YAML-Driven Workflow</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Lazy Loading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-vs-multi-dataset">Single vs Multi-Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#supported-input-formats">Supported Input Formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#partitioning">Partitioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lazy_execution.html">Lazy Execution: Triggering the Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dask_task_graphs.html">Dask Task Graphs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Core Concepts</a></li>
+      <li class="breadcrumb-item active">Lazy Loading</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com:uniovi-hepex/ydana-hep/ydana-hep" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lazy-loading">
+<h1>Lazy Loading<a class="headerlink" href="#lazy-loading" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#single-vs-multi-dataset" id="id1">Single vs Multi-Dataset</a></p></li>
+<li><p><a class="reference internal" href="#supported-input-formats" id="id2">Supported Input Formats</a></p></li>
+<li><p><a class="reference internal" href="#partitioning" id="id3">Partitioning</a></p></li>
+<li><p><a class="reference internal" href="#see-also" id="id4">See Also</a></p></li>
+</ul>
+</nav>
+<p>When you call <a class="reference internal" href="../reference/base.html#ydana.base.ntuple.NTuple" title="ydana.base.ntuple.NTuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.ntuple.NTuple</span></code></a>, three things happen — all without touching disk:</p>
+<p><strong>Schema resolution.</strong></p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">Schema:</span></code> section of your YAML config is parsed by
+<a class="reference internal" href="../reference/base.html#ydana.base.schema.YAMLSchema" title="ydana.base.schema.YAMLSchema"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.schema.YAMLSchema</span></code></a>, a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSchema</span></code> subclass.
+For each dict-valued key it calls
+<code class="xref py py-func docutils literal notranslate"><span class="pre">zip_forms()</span></code> to group flat ROOT branch
+forms into a nested Awkward <em>record</em> (<code class="docutils literal notranslate"><span class="pre">__record__</span> <span class="pre">=</span> <span class="pre">&quot;Particle&quot;</span></code>),
+dispatched to <a class="reference internal" href="../reference/base.html#ydana.base.particle.ParticleRecord" title="ydana.base.particle.ParticleRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.particle.ParticleRecord</span></code></a>. String-valued
+top-level keys map a single branch to an event-level scalar alias.
+Numeric-valued entries are <em>constant</em> fields that require no branch read and
+are injected after the factory returns
+(see <code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.schema.inject_constants()</span></code>).</p>
+<p>Because <code class="docutils literal notranslate"><span class="pre">NanoEventsFactory</span></code> calls <code class="docutils literal notranslate"><span class="pre">schemaclass(base_form)</span></code> with no extra
+arguments, the trick to have a “custom” schema map is bound to the class beforehand via
+<a class="reference internal" href="../reference/base.html#ydana.base.schema.YAMLSchema.with_config" title="ydana.base.schema.YAMLSchema.with_config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">YAMLSchema.with_config</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">schema_cls</span> <span class="o">=</span> <span class="n">YAMLSchema</span><span class="o">.</span><span class="n">with_config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">Schema</span><span class="p">)</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">NanoEventsFactory</span><span class="o">.</span><span class="n">from_root</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">schemaclass</span><span class="o">=</span><span class="n">schema_cls</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;dask&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Standard Coffea schemas (e.g. <code class="docutils literal notranslate"><span class="pre">NanoAODSchema</span></code>) can also be used by passing
+their class name as a plain string to <code class="docutils literal notranslate"><span class="pre">Schema:</span></code> in the YAML config. If
+<code class="docutils literal notranslate"><span class="pre">Schema</span></code> is omitted, <code class="docutils literal notranslate"><span class="pre">BaseSchema</span></code> is used as a fallback (all branches loaded flat).</p>
+</div></blockquote>
+<p><strong>Lazy array construction.</strong></p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">NanoEventsFactory</span></code> runs in <code class="docutils literal notranslate"><span class="pre">dask</span></code> mode, wrapping every field in a
+<code class="docutils literal notranslate"><span class="pre">dask_awkward.Array</span></code> — a <em>task graph</em> node. No data is read; only the
+Awkward <em>form</em> (type description) is inspected to build the graph.
+The result is a structured nested array:
+<code class="docutils literal notranslate"><span class="pre">events.genmuons.pt</span></code> is a <code class="docutils literal notranslate"><span class="pre">dak.Array</span></code> of shape
+<code class="docutils literal notranslate"><span class="pre">[nevents,</span> <span class="pre">nmuons]</span></code> where both dimensions are still unknown at this stage.</p>
+</div></blockquote>
+<p><strong>Pre-steps registration.</strong></p>
+<blockquote>
+<div><p>Before returning, <a class="reference internal" href="../reference/base.html#ydana.base.ntuple.NTuple" title="ydana.base.ntuple.NTuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">NTuple</span></code></a> runs
+<a class="reference internal" href="../reference/base.html#ydana.base.pipeline.execute_pipeline" title="ydana.base.pipeline.execute_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.pipeline.execute_pipeline()</span></code></a> on the events to apply any
+<code class="docutils literal notranslate"><span class="pre">pre-steps</span></code> declared in the config. These transforms extend or filter
+the task graph. See <a class="reference internal" href="lazy_execution.html"><span class="doc">Lazy Execution: Triggering the Graph</span></a>.</p>
+</div></blockquote>
+<section id="single-vs-multi-dataset">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Single vs Multi-Dataset</a><a class="headerlink" href="#single-vs-multi-dataset" title="Link to this heading"></a></h2>
+<p>When a single explicit path is given, <code class="docutils literal notranslate"><span class="pre">ntuple.events</span></code> is a plain
+<code class="docutils literal notranslate"><span class="pre">dak.Array</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ntuple</span> <span class="o">=</span> <span class="n">NTuple</span><span class="p">(</span><span class="s2">&quot;/path/to/data/&quot;</span><span class="p">)</span>
+<span class="n">bx</span> <span class="o">=</span> <span class="n">ntuple</span><span class="o">.</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;digis&quot;</span><span class="p">][</span><span class="s2">&quot;BX&quot;</span><span class="p">]</span>  <span class="c1"># dak.Array — no I/O yet</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bx</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>               <span class="c1"># triggers read</span>
+</pre></div>
+</div>
+<p>When named datasets are used (via <code class="docutils literal notranslate"><span class="pre">filesets.yaml</span></code>), <code class="docutils literal notranslate"><span class="pre">ntuple.events</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">dak.Array]</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ntuple</span> <span class="o">=</span> <span class="n">NTuple</span><span class="p">(</span><span class="n">datasets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DY&quot;</span><span class="p">,</span> <span class="s2">&quot;Zprime&quot;</span><span class="p">])</span> <span class="c1"># filesets defines at least DY and Zprime datasets</span>
+<span class="n">dy_bx</span>     <span class="o">=</span> <span class="n">ntuple</span><span class="o">.</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;DY&quot;</span><span class="p">][</span><span class="s2">&quot;digis&quot;</span><span class="p">][</span><span class="s2">&quot;BX&quot;</span><span class="p">]</span>
+<span class="n">zprime_bx</span> <span class="o">=</span> <span class="n">ntuple</span><span class="o">.</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;Zprime&quot;</span><span class="p">][</span><span class="s2">&quot;digis&quot;</span><span class="p">][</span><span class="s2">&quot;BX&quot;</span><span class="p">]</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dask</span>
+<span class="n">dy_result</span><span class="p">,</span> <span class="n">zprime_result</span> <span class="o">=</span> <span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dy_bx</span><span class="p">,</span> <span class="n">zprime_bx</span><span class="p">)</span>
+<span class="c1"># Both datasets are read in a single optimised scheduler call.</span>
+</pre></div>
+</div>
+</section>
+<section id="supported-input-formats">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Supported Input Formats</a><a class="headerlink" href="#supported-input-formats" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">NTuple</span></code> accepts the same local input forms as <code class="xref py py-func docutils literal notranslate"><span class="pre">uproot.dask()</span></code>, including
+single paths, glob patterns, directories, explicit file lists, and the
+uproot-native <code class="docutils literal notranslate"><span class="pre">{filepath:</span> <span class="pre">treepath}</span></code> dict. The extended dict form that
+specifies explicit entry ranges (<code class="docutils literal notranslate"><span class="pre">steps</span></code>) is also supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48.0%" />
+<col style="width: 52.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Input</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;file.root&quot;</span></code></p></td>
+<td><p>Single ROOT file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;/dir/*.root&quot;</span></code></p></td>
+<td><p>Glob pattern — all matching files</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;/dir/&quot;</span></code></p></td>
+<td><p>Directory — auto-detects <code class="docutils literal notranslate"><span class="pre">.root</span></code> or <code class="docutils literal notranslate"><span class="pre">.parquet</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[&quot;a.root&quot;,</span> <span class="pre">&quot;b.root&quot;]</span></code></p></td>
+<td><p>Explicit file list</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{&quot;a.root&quot;:</span> <span class="pre">&quot;treename&quot;}</span></code></p></td>
+<td><p>Dict (uproot-native, one tree per file)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{&quot;f.root&quot;:</span> <span class="pre">{&quot;object_path&quot;:</span> <span class="pre">&quot;tree&quot;,</span> <span class="pre">&quot;steps&quot;:</span> <span class="pre">[[0,</span> <span class="pre">10000],</span> <span class="pre">...]}}</span></code></p></td>
+<td><p>Dict with explicit entry ranges (uproot step form)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;output.parquet&quot;</span></code></p></td>
+<td><p>Single Parquet file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[&quot;a.parquet&quot;,</span> <span class="pre">&quot;b.parquet&quot;]</span></code></p></td>
+<td><p>Parquet file list</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remote protocols — <code class="docutils literal notranslate"><span class="pre">xroot://</span></code>, <code class="docutils literal notranslate"><span class="pre">https://</span></code>, and CMS DAS queries — are
+<strong>not yet supported</strong>. YDANA-HEP’s file resolver currently handles only
+local paths and glob patterns. Use local copies or pre-staged files.</p>
+</div>
+</section>
+<section id="partitioning">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Partitioning</a><a class="headerlink" href="#partitioning" title="Link to this heading"></a></h2>
+<p>Set <code class="docutils literal notranslate"><span class="pre">step_size</span></code> as argument or via <code class="docutils literal notranslate"><span class="pre">filesets.yaml</span></code> (with <code class="docutils literal notranslate"><span class="pre">step</span></code>) to split large files into chunks.
+Each chunk becomes one Dask partition, enabling parallel and per-partition
+execution modes.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">DY</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">treename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dtNtupleProducer/DTTREE&quot;</span>
+<span class="w">  </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50000</span><span class="w">   </span><span class="c1"># entries per partition</span>
+<span class="w">  </span><span class="nt">files</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;../ntuples/DY/*.root&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">See Also</a><a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="lazy_execution.html"><span class="doc">Lazy Execution: Triggering the Graph</span></a> — what happens when <code class="docutils literal notranslate"><span class="pre">.compute()</span></code> is called.</p></li>
+<li><p><a class="reference internal" href="../reference/base.html#ydana.base.ntuple.NTuple" title="ydana.base.ntuple.NTuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.ntuple.NTuple</span></code></a> — full API reference.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="yaml_driven_workflow.html" class="btn btn-neutral float-left" title="YAML-Driven Workflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lazy_execution.html" class="btn btn-neutral float-right" title="Lazy Execution: Triggering the Graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

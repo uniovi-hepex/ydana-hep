@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>histograms guide &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="API Reference" href="../reference/index.html" />
+    <link rel="prev" title="Programmatic API usage" href="../../examples/programmatic-api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli_usage.html">CLI usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/programmatic-api.html">Programmatic API usage</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">histograms guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#define-histograms-in-python">Define Histograms in Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-histograms-from-yaml">Select Histograms from YAML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#histogram-selection-example">Histogram Selection Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#efficiency-histograms">Efficiency Histograms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parametrised-histograms-with-expand">Parametrised Histograms with <code class="docutils literal notranslate"><span class="pre">expand</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lazy-vs-eager-fill">Lazy vs Eager Fill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Guides</a></li>
+      <li class="breadcrumb-item active">histograms guide</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com:uniovi-hepex/ydana-hep/ydana-hep" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="histograms-guide">
+<h1>histograms guide<a class="headerlink" href="#histograms-guide" title="Link to this heading"></a></h1>
+<p>Histogram definitions live in Python, while YAML controls which ones are
+loaded and filled at runtime. This guide starts from the
+<a class="reference internal" href="../reference/base.html#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.histos.Histogram</span></code></a> API, then shows how <code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code>
+selects histograms for a given run.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#define-histograms-in-python" id="id3">Define Histograms in Python</a></p></li>
+<li><p><a class="reference internal" href="#select-histograms-from-yaml" id="id4">Select Histograms from YAML</a></p></li>
+<li><p><a class="reference internal" href="#histogram-selection-example" id="id5">Histogram Selection Example</a></p></li>
+<li><p><a class="reference internal" href="#efficiency-histograms" id="id6">Efficiency Histograms</a></p></li>
+<li><p><a class="reference internal" href="#parametrised-histograms-with-expand" id="id7">Parametrised Histograms with <code class="docutils literal notranslate"><span class="pre">expand</span></code></a></p></li>
+<li><p><a class="reference internal" href="#lazy-vs-eager-fill" id="id8">Lazy vs Eager Fill</a></p></li>
+<li><p><a class="reference internal" href="#see-also" id="id9">See Also</a></p></li>
+</ul>
+</nav>
+<section id="define-histograms-in-python">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Define Histograms in Python</a><a class="headerlink" href="#define-histograms-in-python" title="Link to this heading"></a></h2>
+<p>The core object is <a class="reference internal" href="../reference/base.html#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.histos.Histogram</span></code></a>.
+Each instance wraps a <code class="docutils literal notranslate"><span class="pre">hist</span></code> object plus a <code class="docutils literal notranslate"><span class="pre">func(events)</span></code> callback that
+returns the columns to fill.</p>
+<p>Minimal contract:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> identifies the histogram in config and output.</p></li>
+<li><p>Axis <code class="docutils literal notranslate"><span class="pre">name=</span></code> values must match keys returned by <code class="docutils literal notranslate"><span class="pre">func</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code> receives the YDANA-HEP <code class="docutils literal notranslate"><span class="pre">events</span></code> object (lazy <code class="docutils literal notranslate"><span class="pre">dak.Array</span></code> or eager
+<code class="docutils literal notranslate"><span class="pre">ak.Array</span></code> depending on execution mode).</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">examples/histograms.py (excerpt)</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">histos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># --- Leading muon properties</span>
+    <span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Leading muon $p_T$ [GeV]&quot;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LeadingMuon_pt&quot;</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">events</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;pt&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;eta&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Leading muon $\eta$&quot;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LeadingMuon_eta&quot;</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">events</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;eta&quot;</span><span class="p">:</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;eta&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="c1"># --- Subleading muon properties</span>
+    <span class="c1"># (safe after select-has-genmuons pre-step guarantees &gt;=2 gen-muons)</span>
+    <span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Subleading muon $p_T$ [GeV]&quot;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;SubLeadingMuon_pt&quot;</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">events</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;pt&quot;</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;eta&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Subleading muon $\eta$&quot;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;SubLeadingMuon_eta&quot;</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">events</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;eta&quot;</span><span class="p">:</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;eta&quot;</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="c1"># --- Efficiency example: pT &gt; 20 GeV</span>
+    <span class="c1"># Shows explicit flattening of a jagged array and boolean axis usage!</span>
+    <span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;muon $p_T$ [GeV]&quot;</span><span class="p">),</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pt20&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;muon $p_T &gt; 20$ GeV&quot;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Muon_pt20_eff&quot;</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">events</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;pt&quot;</span><span class="p">]),</span>
+            <span class="s2">&quot;pt20&quot;</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;pt&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Key rules:</strong></p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> kwarg should be unique across loaded sources.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">func</span></code> must return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> whose keys match axis names.</p></li>
+<li><p>For jagged/nested collections, call <code class="docutils literal notranslate"><span class="pre">ak.flatten()</span></code> when needed.</p></li>
+</ul>
+</div>
+</section>
+<section id="select-histograms-from-yaml">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Select Histograms from YAML</a><a class="headerlink" href="#select-histograms-from-yaml" title="Link to this heading"></a></h2>
+<p>YDANA-HEP discovers which histograms to fill through
+<a class="reference internal" href="../reference/base.html#ydana.base.histos.from_config" title="ydana.base.histos.from_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.histos.from_config()</span></code></a>.</p>
+<p>It supports <strong>both</strong> of the following configuration layouts:</p>
+<ol class="arabic simple">
+<li><p>Nested map under <code class="docutils literal notranslate"><span class="pre">histograms</span></code>:</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">histograms</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">histo_sources</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histograms</span>
+<span class="w">  </span><span class="nt">histo_names</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_pt</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_eta</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Top-level keys:</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">histo_sources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histograms</span>
+
+<span class="nt">histo_names</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_pt</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_eta</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">histo_names</span></code> is provided, only matching names are loaded. If it is
+omitted or empty, all histograms found in the listed sources are used.</p>
+<p><code class="docutils literal notranslate"><span class="pre">histo_sources</span></code> entries are importable Python module names, and each module
+must expose a <code class="docutils literal notranslate"><span class="pre">histos</span></code> list of <a class="reference internal" href="../reference/base.html#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.histos.Histogram</span></code></a> objects.</p>
+</section>
+<section id="histogram-selection-example">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Histogram Selection Example</a><a class="headerlink" href="#histogram-selection-example" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code> selects <em>which</em> histograms to fill:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">examples/yamls/histograms.yaml</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">histo_sources</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># define the source modules of the histograms</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histograms</span>
+<span class="w">  </span><span class="c1"># - Others if needed...</span>
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="nt">histo_names</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Histogram to fill - Uncomment or add histograms as needed.</span>
+<span class="w">  </span><span class="c1"># They should exist in any of the source modules</span>
+<span class="w">  </span><span class="c1"># ============ leading_mu ============ #</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_pt</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LeadingMuon_eta</span>
+<span class="w">  </span><span class="c1"># =========== subleading_mu ========== #</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SubLeadingMuon_pt</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SubLeadingMuon_eta</span>
+<span class="w">  </span><span class="c1"># ============ efficiency example =========== #</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Muon_pt20_eff</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">histo_sources</span></code> modules must be on <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> (for example, <code class="docutils literal notranslate"><span class="pre">examples/</span></code>
+when running from there).</p>
+</section>
+<section id="efficiency-histograms">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Efficiency Histograms</a><a class="headerlink" href="#efficiency-histograms" title="Link to this heading"></a></h2>
+<p>Histograms with a <code class="docutils literal notranslate"><span class="pre">hist.axis.Boolean</span></code> axis are handled specially:
+the framework splits them into <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_num</span></code> (True bins) and
+<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_den</span></code> (all bins) when writing to ROOT. No extra user code is
+needed.</p>
+</section>
+<section id="parametrised-histograms-with-expand">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Parametrised Histograms with <code class="docutils literal notranslate"><span class="pre">expand</span></code></a><a class="headerlink" href="#parametrised-histograms-with-expand" title="Link to this heading"></a></h2>
+<p>Use <a class="reference internal" href="../reference/base.html#ydana.base.histos.expand" title="ydana.base.histos.expand"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.histos.expand()</span></code></a> to produce multiple histograms from
+a single template — useful for parametrised histograms.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ydana.base.histos</span><span class="w"> </span><span class="kn">import</span> <span class="n">expand</span>
+
+<span class="n">histos</span> <span class="o">+=</span> <span class="n">expand</span><span class="p">(</span>
+    <span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$p_T$ [GeV]&quot;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Muon_pt_</span><span class="si">{station}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">events</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span>
+                <span class="n">events</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;pt&quot;</span><span class="p">]</span>
+                <span class="p">[</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;st&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">station</span><span class="p">]</span>
+            <span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="n">station</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="lazy-vs-eager-fill">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Lazy vs Eager Fill</a><a class="headerlink" href="#lazy-vs-eager-fill" title="Link to this heading"></a></h2>
+<p>The fill path depends on the array type passed to
+<a class="reference internal" href="../reference/base.html#ydana.base.histos.Histogram.fill" title="ydana.base.histos.Histogram.fill"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ydana.base.histos.Histogram.fill()</span></code></a>:</p>
+<ul class="simple">
+<li><p><strong>``dak.Array``</strong> (default <code class="docutils literal notranslate"><span class="pre">fill-histos</span></code>) — builds a lazy Dask task
+graph; no data is read until <code class="docutils literal notranslate"><span class="pre">dask.compute()</span></code> is called.</p></li>
+<li><p><strong>``ak.Array``</strong> (per-partition workers) — synchronous fill; the
+histogram is accumulated in memory and immediately written to disk.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">--per-partition</span></code> flag to <code class="docutils literal notranslate"><span class="pre">fill-histos</span></code> selects the per-partition
+path automatically.</p>
+</section>
+<section id="see-also">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">See Also</a><a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/base.html#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">ydana.base.histos.Histogram</span></code></a> — full API reference.</p></li>
+<li><p><a class="reference internal" href="../reference/base.html#ydana.base.histos.expand" title="ydana.base.histos.expand"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.histos.expand()</span></code></a> — parametrised histogram factory.</p></li>
+<li><p><a class="reference internal" href="../reference/base.html#ydana.base.histos.fill" title="ydana.base.histos.fill"><code class="xref py py-func docutils literal notranslate"><span class="pre">ydana.base.histos.fill()</span></code></a> — module-level fill entry point.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../examples/programmatic-api.html" class="btn btn-neutral float-left" title="Programmatic API usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../reference/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1161 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ydana.base.ntuple &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/getting-started/index.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/guides/index.html">Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/reference/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ydana.base.ntuple</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ydana.base.ntuple</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">NTuple — file loader for ROOT and Parquet files using coffea and dask-awkward.</span>
+
+<span class="sd">Overview:</span>
+<span class="sd">---------</span>
+<span class="sd">ROOT (.root):</span>
+<span class="sd">    - Parses schema from config or per-dataset key.</span>
+<span class="sd">    - Optionally partitions fileset if step_size is set.</span>
+<span class="sd">    - Loads events lazily with NanoEventsFactory (dask mode).</span>
+<span class="sd">    - Injects constant fields from schema.</span>
+<span class="sd">    - Executes pre-steps pipeline.</span>
+
+<span class="sd">Parquet (.parquet):</span>
+<span class="sd">    - Loads lazily with dask_awkward.from_parquet.</span>
+<span class="sd">    - Executes pre-steps pipeline.</span>
+
+<span class="sd">Input resolution:</span>
+<span class="sd">    - inputs: explicit files → dak.Array</span>
+<span class="sd">    - datasets: named filesets from config → dict[str, dak.Array]</span>
+<span class="sd">    - neither: loads all filesets from config → dict[str, dak.Array]</span>
+
+<span class="sd">Multiple datasets:</span>
+<span class="sd">    - events is dict[str, dak.Array], keeping datasets separate.</span>
+
+<span class="sd">Per-dataset config keys:</span>
+<span class="sd">    - treename: tree path</span>
+<span class="sd">    - schema: schema override</span>
+<span class="sd">    - step_size: entries per partition</span>
+<span class="sd">    - split_row_groups: Parquet row-group splitting</span>
+<span class="sd">    - metadata: arbitrary dict attached to ntuple.metadata[name]</span>
+
+<span class="sd">tree_name in constructor is a global override, can be a list[str] matching datasets.</span>
+
+<span class="sd">Public usage:</span>
+<span class="sd">    ntuple = NTuple(&quot;/path/to/dir/&quot;, tree_name=&quot;Events&quot;)</span>
+<span class="sd">    ntuple = NTuple(datasets=[&quot;DY&quot;, &quot;Zprime&quot;])</span>
+<span class="sd">    ntuple = NTuple()</span>
+
+<span class="sd">    ntuple.events                            # dak.Array or dict[str, dak.Array]</span>
+<span class="sd">    ntuple.events[&quot;digis&quot;][&quot;BX&quot;].compute()   # single dataset</span>
+<span class="sd">    ntuple.events[&quot;DY&quot;][&quot;digis&quot;][&quot;BX&quot;].compute()  # multi-dataset</span>
+
+<span class="sd">Input formats:</span>
+<span class="sd">    - ``file.root``                              single ROOT file</span>
+<span class="sd">    - ``/dir/*.root``                            glob pattern</span>
+<span class="sd">    - ``/dir/``                                  directory (finds ROOT or Parquet files)</span>
+<span class="sd">    - ``[&quot;a.root&quot;, &quot;b.root&quot;]``                 list of files</span>
+<span class="sd">    - ``{&quot;file.root&quot;: &quot;tree&quot;, ...}``          dict (uproot-native)</span>
+<span class="sd">    - ``{&quot;file.root&quot;: {&quot;object_path&quot;: &quot;ttree_v1&quot;, &quot;steps&quot;: [[0, 10000], [15000, 20000], ...]}}``</span>
+<span class="sd">    - ``output.parquet``                         single Parquet file</span>
+<span class="sd">    - ``[&quot;a.parquet&quot;, &quot;b.parquet&quot;]``           list of Parquet files</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TypeAlias</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dask_awkward</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dak</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">coffea.nanoevents</span><span class="w"> </span><span class="kn">import</span> <span class="n">NanoEventsFactory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">natsort</span><span class="w"> </span><span class="kn">import</span> <span class="n">natsorted</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_msg</span><span class="p">,</span> <span class="n">ensure_on_syspaths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">get_run_config</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">execute_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">YAMLSchema</span><span class="p">,</span> <span class="n">_branches_from_schema</span><span class="p">,</span> <span class="n">_inject_constants</span>
+
+<span class="n">FormattedFiles</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">FileSpec</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+<span class="n">EventsMap</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">dak</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Helpers</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_input</span><span class="p">(</span>
+    <span class="n">files</span><span class="p">:</span> <span class="n">FileSpec</span><span class="p">,</span>
+    <span class="n">tree_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_files</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">in_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="s2">&quot;parquet&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FormattedFiles</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize files into an uproot-native {file: tree_path} dict.</span>
+<span class="sd">    For parquet inputs, tree_path is always None and ignored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ── dict: {filepath: tree_spec} ──────────────────────────────────────────</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">tree_spec</span> <span class="ow">in</span> <span class="n">files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">effective_tree</span> <span class="o">=</span> <span class="n">tree_path</span> <span class="k">if</span> <span class="n">tree_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">tree_spec</span>
+            <span class="c1"># Recursion: pass all flags, but disable max_files locally to slice at the end</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">_format_input</span><span class="p">(</span>
+                    <span class="n">file_path</span><span class="p">,</span>
+                    <span class="n">effective_tree</span><span class="p">,</span>
+                    <span class="n">max_files</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">base_dir</span><span class="o">=</span><span class="n">base_dir</span><span class="p">,</span>
+                    <span class="n">in_format</span><span class="o">=</span><span class="n">in_format</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="n">max_files</span><span class="p">])</span> <span class="k">if</span> <span class="n">max_files</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">result</span>
+
+    <span class="c1"># ── list: [filepath, ...] or [{&quot;file&quot;: &quot;tree&quot;}, ...] ───────────────────</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">_format_input</span><span class="p">(</span>
+                    <span class="n">item</span><span class="p">,</span>
+                    <span class="n">tree_path</span><span class="p">,</span>
+                    <span class="n">max_files</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">base_dir</span><span class="o">=</span><span class="n">base_dir</span><span class="p">,</span>
+                    <span class="n">in_format</span><span class="o">=</span><span class="n">in_format</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="n">max_files</span><span class="p">])</span> <span class="k">if</span> <span class="n">max_files</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">result</span>
+
+    <span class="c1"># ── str: single path, glob pattern, Path, or &quot;file.root:tree&quot; ──────────</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+        <span class="n">files_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="n">effective_tree</span> <span class="o">=</span> <span class="n">tree_path</span>
+
+        <span class="c1"># 1. Strip embedded tree BEFORE path resolution</span>
+        <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">files_str</span> <span class="ow">and</span> <span class="n">in_format</span> <span class="o">==</span> <span class="s2">&quot;root&quot;</span><span class="p">:</span>
+            <span class="n">files_str</span><span class="p">,</span> <span class="n">embedded_tree</span> <span class="o">=</span> <span class="n">files_str</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">effective_tree</span> <span class="o">=</span> <span class="n">tree_path</span> <span class="k">if</span> <span class="n">tree_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">embedded_tree</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">effective_tree</span> <span class="ow">and</span> <span class="n">in_format</span> <span class="o">==</span> <span class="s2">&quot;root&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;No tree name provided. Supply it via --tree TREEPATH, &quot;</span>
+                <span class="s2">&quot;fileset &#39;treename:&#39; key, or embed it in the file path &#39;file.root:treepath&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># 2. Resolve absolute path</span>
+        <span class="n">_base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="k">if</span> <span class="n">base_dir</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span>
+        <span class="n">absolute_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_base_dir</span><span class="p">,</span> <span class="n">files_str</span><span class="p">))</span>
+
+        <span class="c1"># 3. Handle directories</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">absolute_path</span><span class="p">):</span>
+            <span class="n">ext</span> <span class="o">=</span> <span class="s2">&quot;*.root&quot;</span> <span class="k">if</span> <span class="n">in_format</span> <span class="o">==</span> <span class="s2">&quot;root&quot;</span> <span class="k">else</span> <span class="s2">&quot;*.parquet&quot;</span>
+            <span class="n">absolute_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">absolute_path</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+
+        <span class="c1"># 4. Glob expansion</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">(</span><span class="n">_glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">absolute_path</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="n">ext_name</span> <span class="o">=</span> <span class="s2">&quot;.root&quot;</span> <span class="k">if</span> <span class="n">in_format</span> <span class="o">==</span> <span class="s2">&quot;root&quot;</span> <span class="k">else</span> <span class="s2">&quot;.parquet&quot;</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No </span><span class="si">{</span><span class="n">ext_name</span><span class="si">}</span><span class="s2"> file(s) found at </span><span class="si">{</span><span class="n">absolute_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If a glob expands to multiple files, process them as a list to ensure flattening</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_format_input</span><span class="p">(</span>
+                <span class="n">file_list</span><span class="p">,</span>
+                <span class="n">effective_tree</span><span class="p">,</span>
+                <span class="n">max_files</span><span class="o">=</span><span class="n">max_files</span><span class="p">,</span>
+                <span class="n">base_dir</span><span class="o">=</span><span class="n">_base_dir</span><span class="p">,</span>
+                <span class="n">in_format</span><span class="o">=</span><span class="n">in_format</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Single resolved file</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">effective_tree</span> <span class="k">if</span> <span class="n">in_format</span> <span class="o">==</span> <span class="s2">&quot;root&quot;</span> <span class="k">else</span> <span class="kc">None</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_schema</span><span class="p">(</span><span class="n">schema_section</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resolve a raw schema value into (schema_section, schema_cls, uproot_opts).</span>
+<span class="sd">    schema_section: None, str, or dict</span>
+<span class="sd">        - None: coffea BaseSchema (reads all branches)</span>
+<span class="sd">        - str: named coffea schema class / config section (e.g. &quot;SchemaA&quot; or &quot;MySchema&quot;)</span>
+<span class="sd">        - dict: YAMLSchema config (branch allow-list + constants)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">uproot_opts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">schema_section</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">coffea.nanoevents.schemas.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSchema</span>
+
+        <span class="n">schema_cls</span> <span class="o">=</span> <span class="n">BaseSchema</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">schema_section</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">coffea.nanoevents.schemas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_schemas</span>
+
+        <span class="n">schema_cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_schemas</span><span class="p">,</span> <span class="n">schema_section</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">schema_cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown coffea schema class: &#39;</span><span class="si">{</span><span class="n">schema_section</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="s2">&quot;Check coffea.nanoevents.schemas for available names.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">allowed</span> <span class="o">=</span> <span class="n">_branches_from_schema</span><span class="p">(</span><span class="n">schema_section</span><span class="p">)</span>
+        <span class="n">uproot_opts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;filter_name&quot;</span><span class="p">:</span> <span class="n">allowed</span><span class="p">}</span>
+        <span class="n">schema_cls</span> <span class="o">=</span> <span class="n">YAMLSchema</span><span class="o">.</span><span class="n">with_config</span><span class="p">(</span><span class="n">schema_section</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">schema_section</span><span class="p">,</span> <span class="n">schema_cls</span><span class="p">,</span> <span class="n">uproot_opts</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_partition_inputs</span><span class="p">(</span><span class="n">files</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">FormattedFiles</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">FormattedFiles</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Partition ROOT files using coffea.dataset_tools.preprocess.</span>
+<span class="sd">    Converts {file: treepath} dict into a coffea fileset, discovers entry counts,</span>
+<span class="sd">    computes chunk boundaries, and returns the preprocessed files dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">coffea.dataset_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">preprocess</span>
+
+    <span class="c1"># Normalise into a {file: {object_path: ...}} dict for coffea</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># &quot;path/to/file.root:treepath&quot; form</span>
+        <span class="n">file_part</span><span class="p">,</span> <span class="n">obj_path</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">coffea_files</span> <span class="o">=</span> <span class="p">{</span><span class="n">file_part</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;object_path&quot;</span><span class="p">:</span> <span class="n">obj_path</span><span class="p">}}</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">coffea_files</span> <span class="o">=</span> <span class="p">{</span><span class="n">fpath</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;object_path&quot;</span><span class="p">:</span> <span class="n">tree</span><span class="p">}</span> <span class="k">for</span> <span class="n">fpath</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">files</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">files</span>  <span class="c1"># pass through unknown forms</span>
+
+    <span class="n">fileset</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_dataset&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="n">coffea_files</span><span class="p">}}</span>
+    <span class="n">available</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">preprocess</span><span class="p">(</span><span class="n">fileset</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="n">step_size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">available</span><span class="p">[</span><span class="s2">&quot;_dataset&quot;</span><span class="p">][</span><span class="s2">&quot;files&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_from_root</span><span class="p">(</span>
+    <span class="n">formatted_files</span><span class="p">:</span> <span class="n">FormattedFiles</span><span class="p">,</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">schema_section</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">dak</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build a lazy dask-awkward graph from a formatted ROOT fileset.</span>
+<span class="sd">    formatted_files: {abs_path: treepath} dict from _format_input.</span>
+<span class="sd">    schema_section: schema override (None falls back to config.Schema).</span>
+<span class="sd">    step_size: partitions files if set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">schema_section</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># str → look up as named schema in config first, else treat as coffea class name</span>
+        <span class="c1"># dict → use directly as YAMLSchema config</span>
+        <span class="n">effective_schema</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">schema_section</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">schema_section</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">schema_section</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">schema_section</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">effective_schema</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;Schema&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># global fallback; None → BaseSchema</span>
+
+    <span class="n">schema_sec</span><span class="p">,</span> <span class="n">schema_cls</span><span class="p">,</span> <span class="n">uproot_opts</span> <span class="o">=</span> <span class="n">_resolve_schema</span><span class="p">(</span><span class="n">effective_schema</span><span class="p">)</span>
+
+    <span class="n">load_files</span> <span class="o">=</span> <span class="n">formatted_files</span>
+    <span class="k">if</span> <span class="n">step_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">load_files</span> <span class="o">=</span> <span class="n">_partition_inputs</span><span class="p">(</span><span class="n">formatted_files</span><span class="p">,</span> <span class="n">step_size</span><span class="p">)</span>
+
+    <span class="n">events</span> <span class="o">=</span> <span class="n">NanoEventsFactory</span><span class="o">.</span><span class="n">from_root</span><span class="p">(</span>
+        <span class="n">load_files</span><span class="p">,</span>
+        <span class="n">schemaclass</span><span class="o">=</span><span class="n">schema_cls</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;dask&quot;</span><span class="p">,</span>
+        <span class="n">uproot_options</span><span class="o">=</span><span class="n">uproot_opts</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">events</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">schema_sec</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="n">_inject_constants</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema_sec</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">events</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Fileset inspector</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_print_files_block</span><span class="p">(</span><span class="n">loaded_files</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ds_treename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">max_files</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render the indented file listing for one dataset block.</span>
+<span class="sd">    Shows up to max_files, with tree name annotation if different from dataset tree.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">loaded_files</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">loaded_files</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">show</span> <span class="o">=</span> <span class="n">items</span> <span class="k">if</span> <span class="n">max_files</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">items</span><span class="p">[:</span><span class="n">max_files</span><span class="p">]</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">show</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file_tree</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">show</span><span class="p">):</span>
+        <span class="c1"># If there are hidden files, the last visible file still gets a &quot;├&quot;</span>
+        <span class="c1"># because the &quot;└&quot; is reserved for the &quot;+X more&quot; line.</span>
+        <span class="n">is_last</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">show</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">hidden</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">connector</span> <span class="o">=</span> <span class="s2">&quot;└&quot;</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="s2">&quot;├&quot;</span>
+
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Only show the tree name if it differs from the parent dataset tree</span>
+        <span class="n">tree_part</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">file_tree</span> <span class="ow">and</span> <span class="n">file_tree</span> <span class="o">!=</span> <span class="n">ds_treename</span><span class="p">:</span>
+            <span class="n">tree_part</span> <span class="o">=</span> <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  →  </span><span class="si">{</span><span class="n">file_tree</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">connector</span><span class="si">}</span><span class="s2">  &quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">color_msg</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">tree_part</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">hidden</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      └  … +</span><span class="si">{</span><span class="n">hidden</span><span class="si">}</span><span class="s2"> more&quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_print_dataset_block</span><span class="p">(</span>
+    <span class="n">ds_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">loaded_files</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">npart</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ds_cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_files</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the header, info line, and file listing for one dataset or input block.</span>
+<span class="sd">    Shows dataset name, file count, config info, file listing, and partition count.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ds_cfg</span> <span class="o">=</span> <span class="n">ds_cfg</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="c1"># Resolve tree name for display</span>
+    <span class="n">ds_treename</span> <span class="o">=</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;treename&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tree_name&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ds_treename</span> <span class="ow">and</span> <span class="n">loaded_files</span><span class="p">:</span>
+        <span class="n">trees</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">loaded_files</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">t</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">ds_treename</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">trees</span><span class="p">))</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">loaded_files</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [v</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="k">if</span> <span class="n">version</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 1. Print Header</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;  ▸ &quot;</span> <span class="k">if</span> <span class="n">ds_name</span> <span class="o">!=</span> <span class="s2">&quot;inputs&quot;</span> <span class="k">else</span> <span class="s2">&quot;▸ &quot;</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="n">color_msg</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indentLevel</span><span class="o">=</span><span class="n">indent</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">color_msg</span><span class="p">(</span><span class="n">ds_name</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  (</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> file</span><span class="si">{</span><span class="s1">&#39;s&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">color_msg</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 2. Print Config Info (cleaner list construction)</span>
+    <span class="n">info_parts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">ds_treename</span><span class="p">:</span>
+        <span class="n">info_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tree: </span><span class="si">{</span><span class="n">ds_treename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;step_size&quot;</span><span class="p">):</span>
+        <span class="n">info_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step_size=</span><span class="si">{</span><span class="n">ds_cfg</span><span class="p">[</span><span class="s1">&#39;step_size&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;split_row_groups&quot;</span><span class="p">):</span>
+        <span class="n">info_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;split_row_groups=True&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">info_parts</span><span class="p">:</span>
+        <span class="n">color_msg</span><span class="p">(</span><span class="s2">&quot;      &quot;</span> <span class="o">+</span> <span class="s2">&quot;  ·  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">info_parts</span><span class="p">),</span> <span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="n">indentLevel</span><span class="o">=</span><span class="n">indent</span><span class="p">)</span>
+
+    <span class="c1"># 3. Print Files and Partitions</span>
+    <span class="n">_print_files_block</span><span class="p">(</span><span class="n">loaded_files</span><span class="p">,</span> <span class="n">ds_treename</span><span class="p">,</span> <span class="n">max_files</span><span class="p">)</span>
+
+    <span class="c1"># Adjust indentation based on whether this is a nested dataset or the root input</span>
+    <span class="n">part_indent</span> <span class="o">=</span> <span class="n">indent</span> <span class="o">+</span> <span class="mi">3</span> <span class="k">if</span> <span class="n">ds_name</span> <span class="o">!=</span> <span class="s2">&quot;inputs&quot;</span> <span class="k">else</span> <span class="n">indent</span>
+    <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">npart</span><span class="si">}</span><span class="s2"> partition(s)&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">indentLevel</span><span class="o">=</span><span class="n">part_indent</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># NTuple class</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="NTuple">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.ntuple.NTuple">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NTuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    NTuple loader for ROOT and Parquet files.</span>
+
+<span class="sd">    Loads ROOT files lazily via coffea.NanoEventsFactory or Parquet files via </span>
+<span class="sd">    dask_awkward.from_parquet.</span>
+
+<span class="sd">    Input resolution:</span>
+<span class="sd">        - inputs: explicit files → dak.Array</span>
+<span class="sd">        - datasets: named filesets from config → dict[str, dak.Array]</span>
+<span class="sd">        - neither: loads all filesets from config → dict[str, dak.Array]</span>
+
+<span class="sd">    Multiple datasets:</span>
+<span class="sd">        - events is dict[str, dak.Array], keeping datasets separate.</span>
+
+<span class="sd">    Per-dataset config keys:</span>
+<span class="sd">        - treename: tree path</span>
+<span class="sd">        - schema: schema override</span>
+<span class="sd">        - step_size: entries per partition</span>
+<span class="sd">        - split_row_groups: Parquet row-group splitting</span>
+<span class="sd">        - metadata: arbitrary dict attached to ntuple.metadata[name]</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        inputs: str, list, dict, or None (explicit input path, mutually exclusive with datasets)</span>
+<span class="sd">        maxfiles: int (cap on files per dataset, -1 = all)</span>
+<span class="sd">        datasets: str, list[str], or None (named datasets to load, [] = all filesets)</span>
+<span class="sd">        tree_name: str | list[str] | None (TTree path, str = same for all, list = one per dataset)</span>
+<span class="sd">        step_size: int (ROOT: entries per partition)</span>
+<span class="sd">        split_row_groups: bool (Parquet: one partition per row group)</span>
+<span class="sd">        in_format: {&quot;root&quot;, &quot;parquet&quot;} (input file format)</span>
+<span class="sd">        CONFIG: Config (defaults to :func:`~ydana.base.config.get_run_config`)</span>
+<span class="sd">        verbose: bool (print info summary)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        events: dak.Array or dict[str, dak.Array] (single lazy array or per-dataset mapping)</span>
+<span class="sd">        metadata: dict or dict[str, dict] (flat dict or per-dataset mapping)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">inputs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">maxfiles</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">datasets</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tree_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">step_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">split_row_groups</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">in_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="s2">&quot;parquet&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+        <span class="n">CONFIG</span><span class="p">:</span> <span class="n">Config</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">in_format</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="s2">&quot;parquet&quot;</span><span class="p">}:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;in_format must be either &#39;root&#39; or &#39;parquet&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check this if logic..</span>
+        <span class="k">if</span> <span class="n">inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">datasets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;inputs&#39; and &#39;datasets&#39; are mutually exclusive.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG</span> <span class="o">=</span> <span class="n">CONFIG</span> <span class="k">if</span> <span class="n">CONFIG</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_run_config</span><span class="p">()</span>
+
+        <span class="c1"># sanity paths</span>
+        <span class="n">ensure_on_syspaths</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxfiles</span> <span class="o">=</span> <span class="n">maxfiles</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">:</span> <span class="n">EventsMap</span> <span class="o">|</span> <span class="n">dak</span><span class="o">.</span><span class="n">Array</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_files</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FormattedFiles</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># ── 1. Build a unified list of tasks to load ──────────────────────────</span>
+        <span class="n">load_tasks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">is_single_input</span> <span class="o">=</span> <span class="n">inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">is_single_input</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tree_name</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;tree_name as a list is only supported with &#39;datasets&#39;. &quot;</span>
+                    <span class="s2">&quot;Pass a single string when using &#39;inputs&#39;.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">load_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;inputs&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="n">inputs</span><span class="p">,</span>
+                    <span class="s2">&quot;tree&quot;</span><span class="p">:</span> <span class="n">tree_name</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">tree_name</span> <span class="k">else</span> <span class="n">tree_name</span><span class="p">,</span>
+                    <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="n">step_size</span><span class="p">,</span>
+                    <span class="s2">&quot;split_rg&quot;</span><span class="p">:</span> <span class="n">split_row_groups</span><span class="p">,</span>
+                    <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;base_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{},</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filesets</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CONFIG</span><span class="p">,</span> <span class="s2">&quot;filesets&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">filesets</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No input path provided and no &#39;filesets&#39; section in config.&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Normalize datasets</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">datasets</span><span class="p">:</span>
+                <span class="n">datasets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">filesets</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">datasets</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Invalid &#39;datasets&#39; value: </span><span class="si">{</span><span class="n">datasets</span><span class="si">!r}</span><span class="s2">. Must be a string or list of strings.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="n">invalid</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">datasets</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filesets</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">invalid</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Dataset(s) </span><span class="si">{</span><span class="n">invalid</span><span class="si">}</span><span class="s2"> not found in config filesets. Available: </span><span class="si">{</span>
+<span class="w">                        </span><span class="nb">list</span><span class="p">(</span><span class="n">filesets</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="w">                    </span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tree_name</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tree_name</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;tree_name list length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tree_name</span><span class="p">)</span><span class="si">}</span><span class="s2">) must match datasets &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span><span class="si">}</span><span class="s2">).&quot;</span>
+                <span class="p">)</span>
+
+            <span class="n">tree_names</span> <span class="o">=</span> <span class="n">tree_name</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tree_name</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">tree_name</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+            <span class="n">base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">ds_name</span><span class="p">,</span> <span class="n">ds_tree</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">tree_names</span><span class="p">):</span>
+                <span class="n">ds_cfg</span> <span class="o">=</span> <span class="n">filesets</span><span class="p">[</span><span class="n">ds_name</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;files&quot;</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset &#39;</span><span class="si">{</span><span class="n">ds_name</span><span class="si">}</span><span class="s2">&#39; has no &#39;files&#39; key.&quot;</span><span class="p">)</span>
+
+                <span class="n">load_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">ds_name</span><span class="p">,</span>
+                        <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="n">ds_cfg</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;tree&quot;</span><span class="p">:</span> <span class="n">ds_tree</span> <span class="k">if</span> <span class="n">ds_tree</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;treename&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="n">step_size</span> <span class="k">if</span> <span class="n">step_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;step_size&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;split_rg&quot;</span><span class="p">:</span> <span class="n">split_row_groups</span>
+                        <span class="k">if</span> <span class="n">split_row_groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                        <span class="k">else</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;split_row_groups&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;schema&quot;</span><span class="p">),</span>
+                        <span class="s2">&quot;base_dir&quot;</span><span class="p">:</span> <span class="n">base_dir</span><span class="p">,</span>
+                        <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="n">ds_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+
+        <span class="c1"># ── 2. Execute loading ───────────────────────────────</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">load_tasks</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_files</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_format_input</span><span class="p">(</span>
+                <span class="n">task</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">],</span>
+                <span class="n">tree_path</span><span class="o">=</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;tree&quot;</span><span class="p">],</span>
+                <span class="n">max_files</span><span class="o">=</span><span class="n">maxfiles</span><span class="p">,</span>
+                <span class="n">base_dir</span><span class="o">=</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;base_dir&quot;</span><span class="p">],</span>
+                <span class="n">in_format</span><span class="o">=</span><span class="n">in_format</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_events</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_files</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
+                <span class="n">step_size</span><span class="o">=</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">],</span>
+                <span class="n">split_row_groups</span><span class="o">=</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;split_rg&quot;</span><span class="p">],</span>
+                <span class="n">schema</span><span class="o">=</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;schema&quot;</span><span class="p">],</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">in_format</span><span class="o">=</span><span class="n">in_format</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_single_input</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span>
+
+        <span class="c1"># ── 3. Post-process and print info ────────────────────────────────────</span>
+        <span class="k">if</span> <span class="n">is_single_input</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">[</span>
+                <span class="s2">&quot;inputs&quot;</span>
+            <span class="p">]</span>  <span class="c1"># Flatten dict to single dak.Array for explicit inputs</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Internal loading</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_events</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">files</span><span class="p">:</span> <span class="n">FormattedFiles</span><span class="p">,</span>
+        <span class="n">step_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">split_row_groups</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">schema</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;inputs&quot;</span><span class="p">,</span>
+        <span class="n">in_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="s2">&quot;parquet&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">dak</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Format files, load (ROOT or Parquet), apply pre-steps → ``dak.Array``.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">in_format</span> <span class="o">==</span> <span class="s2">&quot;parquet&quot;</span><span class="p">:</span>
+            <span class="c1"># For Parquet, we ignore tree names so only keys (file paths) are relevant.</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="n">dak</span><span class="o">.</span><span class="n">from_parquet</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">files</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">split_row_groups</span><span class="o">=</span><span class="n">split_row_groups</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="n">_load_from_root</span><span class="p">(</span>
+                <span class="n">files</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG</span><span class="p">,</span>
+                <span class="n">step_size</span><span class="o">=</span><span class="n">step_size</span><span class="p">,</span>
+                <span class="n">schema_section</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">pre_steps</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CONFIG</span><span class="p">,</span> <span class="s2">&quot;pre-steps&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">pre_steps</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">execute_pipeline</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">pre_steps</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;inputs&quot;</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">events</span>
+
+<div class="viewcode-block" id="NTuple.info">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.ntuple.NTuple.info">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_files</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print a human-readable summary of the loaded NTuple.</span>
+<span class="sd">        Shows loaded datasets, file listing, and partition counts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># ── filesets mode ─────────────────────────────────────────────</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">filesets</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CONFIG</span><span class="p">,</span> <span class="s2">&quot;filesets&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+            <span class="n">color_msg</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Loaded — </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="si">}</span><span class="s2"> dataset(s)&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cyan&quot;</span><span class="p">,</span>
+                <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">indentLevel</span><span class="o">=</span><span class="n">indent</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">ds_name</span><span class="p">,</span> <span class="n">evts</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">loaded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ds_name</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">ds_cfg</span> <span class="o">=</span> <span class="n">filesets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ds_name</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">npart</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">evts</span><span class="p">,</span> <span class="s2">&quot;npartitions&quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span>
+
+                <span class="n">_print_dataset_block</span><span class="p">(</span><span class="n">ds_name</span><span class="p">,</span> <span class="n">loaded</span><span class="p">,</span> <span class="n">npart</span><span class="p">,</span> <span class="n">ds_cfg</span><span class="p">,</span> <span class="n">max_files</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
+
+        <span class="c1"># ── inputs mode ───────────────────────────────────────────────</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">loaded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;inputs&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">npart</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="s2">&quot;npartitions&quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span>
+
+            <span class="n">_print_dataset_block</span><span class="p">(</span><span class="s2">&quot;inputs&quot;</span><span class="p">,</span> <span class="n">loaded</span><span class="p">,</span> <span class="n">npart</span><span class="p">,</span> <span class="n">max_files</span><span class="o">=</span><span class="n">max_files</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

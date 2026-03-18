@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLI usage &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Programmatic API usage" href="../../examples/programmatic-api.html" />
+    <link rel="prev" title="Guides" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Guides</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CLI usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ydana-dump-events"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">dump-events</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana-fill-histos"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">fill-histos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana-merge-roots"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-roots</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana-merge-histos"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-histos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#full-end-to-end-example">Full end-to-end example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/programmatic-api.html">Programmatic API usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="histograms_yaml.html">histograms guide</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Guides</a></li>
+      <li class="breadcrumb-item active">CLI usage</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com:uniovi-hepex/ydana-hep/ydana-hep" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cli-usage">
+<h1>CLI usage<a class="headerlink" href="#cli-usage" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">ydana</span></code> CLI is powered by <a class="reference internal" href="../reference/cli.html#module-ydana.cli" title="ydana.cli"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ydana.cli</span></code></a> and exposes four subcommands.
+Run <code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">--help</span></code> or <code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">&lt;command&gt;</span> <span class="pre">--help</span></code> for the authoritative
+argument listing.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#ydana-dump-events" id="id1"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">dump-events</span></code></a></p></li>
+<li><p><a class="reference internal" href="#ydana-fill-histos" id="id2"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">fill-histos</span></code></a></p></li>
+<li><p><a class="reference internal" href="#ydana-merge-roots" id="id3"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-roots</span></code></a></p></li>
+<li><p><a class="reference internal" href="#ydana-merge-histos" id="id4"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-histos</span></code></a></p></li>
+<li><p><a class="reference internal" href="#full-end-to-end-example" id="id5">Full end-to-end example</a></p></li>
+</ul>
+</nav>
+<section id="ydana-dump-events">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">dump-events</span></code></a><a class="headerlink" href="#ydana-dump-events" title="Link to this heading"></a></h2>
+<p>Reads datasets through the pre-steps pipeline and writes events to ROOT or
+Parquet.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ydana<span class="w"> </span>dump-events<span class="w"> </span>-cf<span class="w"> </span>run_config.yaml<span class="w"> </span>-o<span class="w"> </span>results/
+
+<span class="c1"># Explicit inputs instead of filesets</span>
+ydana<span class="w"> </span>dump-events<span class="w"> </span>-cf<span class="w"> </span>run_config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--inputs<span class="w"> </span><span class="s2">&quot;/data/*.root&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tree<span class="w">   </span><span class="s2">&quot;dtNtupleProducer/DTTREE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>results_DY<span class="w"> </span>--tag<span class="w"> </span>_DY
+</pre></div>
+</div>
+<p>Key flags:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-cf</span> <span class="pre">/</span> <span class="pre">--config-file</span></code></p></td>
+<td><p>Path to <code class="docutils literal notranslate"><span class="pre">run_config.yaml</span></code> (required).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--outpath</span></code></p></td>
+<td><p>Output directory. Created if it does not exist.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--inputs</span></code></p></td>
+<td><p>Glob or list of files, overrides <code class="docutils literal notranslate"><span class="pre">filesets.yaml</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--tree</span></code></p></td>
+<td><p>ROOT TTree path, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;dtNtupleProducer/DTTREE&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--tag</span></code></p></td>
+<td><p>String appended to output file names.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ydana-fill-histos">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">fill-histos</span></code></a><a class="headerlink" href="#ydana-fill-histos" title="Link to this heading"></a></h2>
+<p>Reads datasets through the pre-steps pipeline and fills the histograms declared in <code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code> and writes ROOT files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ydana<span class="w"> </span>fill-histos<span class="w"> </span>-cf<span class="w"> </span>run_config.yaml<span class="w"> </span>-o<span class="w"> </span>results/<span class="w"> </span><span class="c1"># also supports explicit inputs and tree as in dump-events</span>
+
+<span class="c1"># Per-partition mode (recommended for large datasets)</span>
+ydana<span class="w"> </span>fill-histos<span class="w"> </span>-cf<span class="w"> </span>run_config.yaml<span class="w"> </span>-o<span class="w"> </span>results/<span class="w"> </span>--per-partition
+</pre></div>
+</div>
+<p>Key flags:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>Same flags as <code class="docutils literal notranslate"><span class="pre">dump-events</span></code> for inputs, tree, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--per-partition</span></code></p></td>
+<td><p>Materialise and write each Dask partition separately (lower peak RAM).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ydana-merge-roots">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-roots</span></code></a><a class="headerlink" href="#ydana-merge-roots" title="Link to this heading"></a></h2>
+<p>Combines multiple per-partition ROOT event files into a single file. It is supported by ROOT <code class="docutils literal notranslate"><span class="pre">hadd</span></code>, so,
+ensure to have it accessible in your environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ydana<span class="w"> </span>merge-roots<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span><span class="s2">&quot;results/roots/*.root&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>results/<span class="w"> </span>--tag<span class="w"> </span>_merged
+</pre></div>
+</div>
+<p>Key flags:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">/</span> <span class="pre">--inputs</span></code></p></td>
+<td><p>Glob pattern or list of ROOT files to merge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--outpath</span></code></p></td>
+<td><p>Output directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--tag</span></code></p></td>
+<td><p>Suffix for the merged output file name.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ydana-merge-histos">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-histos</span></code></a><a class="headerlink" href="#ydana-merge-histos" title="Link to this heading"></a></h2>
+<p>Combines multiple per-partition histogram ROOT files into one.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ydana<span class="w"> </span>merge-histos<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span><span class="s2">&quot;results/histograms/*.root&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>results/<span class="w"> </span>--tag<span class="w"> </span>_merged
+</pre></div>
+</div>
+<p>The flags are identical to <code class="docutils literal notranslate"><span class="pre">merge-roots</span></code> above.</p>
+</section>
+<section id="full-end-to-end-example">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Full end-to-end example</a><a class="headerlink" href="#full-end-to-end-example" title="Link to this heading"></a></h2>
+<p>The complete workflow for two datasets (DY and Z’):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/
+
+<span class="c1"># Step 1 — dump events</span>
+ydana<span class="w"> </span>dump-events<span class="w"> </span>-cf<span class="w"> </span>yamls/run_config.yaml<span class="w"> </span>-o<span class="w"> </span>results/
+
+<span class="c1"># Step 2 — fill histograms per-partition</span>
+ydana<span class="w"> </span>fill-histos<span class="w"> </span>-cf<span class="w"> </span>yamls/run_config.yaml<span class="w"> </span>-o<span class="w"> </span>results/<span class="w"> </span>--per-partition
+
+<span class="c1"># Step 3 — merge by dataset</span>
+ydana<span class="w"> </span>merge-roots<span class="w">  </span>-i<span class="w"> </span><span class="s2">&quot;results/roots/DY_*.root&quot;</span><span class="w">     </span>-o<span class="w"> </span>results/<span class="w"> </span>--tag<span class="w"> </span>_DY
+ydana<span class="w"> </span>merge-histos<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;results/histograms/DY_*.root&quot;</span><span class="w"> </span>-o<span class="w"> </span>results/<span class="w"> </span>--tag<span class="w"> </span>_DY
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../getting-started/first_steps.html"><span class="doc">First steps</span></a> for the <code class="docutils literal notranslate"><span class="pre">run_analysis.sh</span></code> walkthrough that calls all these commands automatically.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Guides" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../examples/programmatic-api.html" class="btn btn-neutral float-right" title="Programmatic API usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

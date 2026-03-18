@@ -1,0 +1,1148 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base API &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Analysis API" href="analysis.html" />
+    <link rel="prev" title="API Reference" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Base API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.config.Config.__init__"><code class="docutils literal notranslate"><span class="pre">Config.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.config.Config.change_config_file"><code class="docutils literal notranslate"><span class="pre">Config.change_config_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.config.get_run_config"><code class="docutils literal notranslate"><span class="pre">get_run_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.config.set_run_config"><code class="docutils literal notranslate"><span class="pre">set_run_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.ntuple.NTuple"><code class="docutils literal notranslate"><span class="pre">NTuple</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.ntuple.NTuple.info"><code class="docutils literal notranslate"><span class="pre">NTuple.info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-level-functions">Module-level functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lazy-fill-mechanics">Lazy fill mechanics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#per-partition-fill">Per-partition fill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.histos.Histogram"><code class="docutils literal notranslate"><span class="pre">Histogram</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.histos.Histogram.fill"><code class="docutils literal notranslate"><span class="pre">Histogram.fill()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.histos.Histogram.h"><code class="docutils literal notranslate"><span class="pre">Histogram.h</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.histos.expand"><code class="docutils literal notranslate"><span class="pre">expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.histos.from_config"><code class="docutils literal notranslate"><span class="pre">from_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.histos.to_root"><code class="docutils literal notranslate"><span class="pre">to_root()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.histos.fill"><code class="docutils literal notranslate"><span class="pre">fill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-it-does">What it does</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-injection">Config injection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.schema.YAMLSchema"><code class="docutils literal notranslate"><span class="pre">YAMLSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.schema.YAMLSchema.with_config"><code class="docutils literal notranslate"><span class="pre">YAMLSchema.with_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.schema.YAMLSchema.behavior"><code class="docutils literal notranslate"><span class="pre">YAMLSchema.behavior()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#topological-ordering">Topological ordering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-semantics">Step semantics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-definition-keys">Step definition keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.pipeline.topological_sort"><code class="docutils literal notranslate"><span class="pre">topological_sort()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.pipeline.execute_pipeline"><code class="docutils literal notranslate"><span class="pre">execute_pipeline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.io.dump_to_parquet"><code class="docutils literal notranslate"><span class="pre">dump_to_parquet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.io.dump_to_root"><code class="docutils literal notranslate"><span class="pre">dump_to_root()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.event.EventRecord"><code class="docutils literal notranslate"><span class="pre">EventRecord</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.event.EventRecord.id"><code class="docutils literal notranslate"><span class="pre">EventRecord.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.event.EventRecord.show"><code class="docutils literal notranslate"><span class="pre">EventRecord.show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.particle.ParticleRecord"><code class="docutils literal notranslate"><span class="pre">ParticleRecord</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.particle.ParticleRecord.id"><code class="docutils literal notranslate"><span class="pre">ParticleRecord.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.particle.ParticleRecord.ids_from_array"><code class="docutils literal notranslate"><span class="pre">ParticleRecord.ids_from_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.particle.ParticleRecord.show"><code class="docutils literal notranslate"><span class="pre">ParticleRecord.show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ydana.base.particle.ParticleArray"><code class="docutils literal notranslate"><span class="pre">ParticleArray</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ydana.base.particle.ParticleArray.id"><code class="docutils literal notranslate"><span class="pre">ParticleArray.id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Base API</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com:uniovi-hepex/ydana-hep/ydana-hep" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="base-api">
+<h1>Base API<a class="headerlink" href="#base-api" title="Link to this heading"></a></h1>
+<p>Quick-reference table of the public symbols in <code class="docutils literal notranslate"><span class="pre">ydana.base</span></code>.</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.config.Config" title="ydana.base.config.Config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.config.Config</span></code></a></p></td>
+<td><p>Configuration class to handle loading and setting up configurations from a YAML file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.config.get_run_config" title="ydana.base.config.get_run_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.config.get_run_config</span></code></a></p></td>
+<td><p>Return the active singleton run config instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.config.set_run_config" title="ydana.base.config.set_run_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.config.set_run_config</span></code></a></p></td>
+<td><p>Replace the active singleton run config instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.ntuple.NTuple" title="ydana.base.ntuple.NTuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.ntuple.NTuple</span></code></a></p></td>
+<td><p>NTuple loader for ROOT and Parquet files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.histos.Histogram</span></code></a></p></td>
+<td><p>Thin wrapper pairing a <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code> with a fill function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.histos.expand" title="ydana.base.histos.expand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.histos.expand</span></code></a></p></td>
+<td><p>Build a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code> objects over a parameter range.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.histos.fill" title="ydana.base.histos.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.histos.fill</span></code></a></p></td>
+<td><p>Fill histograms from events and (optionally) write ROOT output.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.histos.to_root" title="ydana.base.histos.to_root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.histos.to_root</span></code></a></p></td>
+<td><p>Write histograms to a ROOT file via uproot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.histos.from_config" title="ydana.base.histos.from_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.histos.from_config</span></code></a></p></td>
+<td><p>Load histogram list from a Config instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.schema.YAMLSchema" title="ydana.base.schema.YAMLSchema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.schema.YAMLSchema</span></code></a></p></td>
+<td><p>Groups flat ntuple branches into nested Awkward particle records.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.pipeline.topological_sort" title="ydana.base.pipeline.topological_sort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.pipeline.topological_sort</span></code></a></p></td>
+<td><p>Group pipeline steps by dependency depth.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.pipeline.execute_pipeline" title="ydana.base.pipeline.execute_pipeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.pipeline.execute_pipeline</span></code></a></p></td>
+<td><p>Execute pipeline steps in dependency order.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.io.dump_to_root" title="ydana.base.io.dump_to_root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.io.dump_to_root</span></code></a></p></td>
+<td><p>Write an event array to a new ROOT file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.io.dump_to_parquet" title="ydana.base.io.dump_to_parquet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.io.dump_to_parquet</span></code></a></p></td>
+<td><p>Persist the full event array to Parquet, preserving all nesting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.event.EventRecord" title="ydana.base.event.EventRecord"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.event.EventRecord</span></code></a></p></td>
+<td><p>Single event record, backed by a lazy Awkward array slice.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ydana.base.particle.ParticleArray" title="ydana.base.particle.ParticleArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.particle.ParticleArray</span></code></a></p></td>
+<td><p>Collection of particle records.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ydana.base.particle.ParticleRecord" title="ydana.base.particle.ParticleRecord"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ydana.base.particle.ParticleRecord</span></code></a></p></td>
+<td><p>Single particle record (one row of a jagged particle collection).</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<dl class="py class" id="module-ydana.base.config">
+<dt class="sig sig-object py" id="ydana.base.config.Config">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ydana.base.config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/config.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.config.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Configuration class to handle loading and setting up configurations from a YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.config.Config.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/config.html#Config.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.config.Config.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the Config object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The path to the configuration file.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.config.Config.change_config_file">
+<span class="sig-name descname"><span class="pre">change_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./run_config.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/config.html#Config.change_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.config.Config.change_config_file" title="Link to this definition"></a></dt>
+<dd><p>Changes the configuration file to a new path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The relative path to the new config file. Default is “./run_config.yaml”</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.config.get_run_config">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.config.</span></span><span class="sig-name descname"><span class="pre">get_run_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/config.html#get_run_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.config.get_run_config" title="Link to this definition"></a></dt>
+<dd><p>Return the active singleton run config instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ydana.base.config.Config" title="ydana.base.config.Config"><em>Config</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.config.set_run_config">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.config.</span></span><span class="sig-name descname"><span class="pre">set_run_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/config.html#set_run_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.config.set_run_config" title="Link to this definition"></a></dt>
+<dd><p>Replace the active singleton run config instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference internal" href="#ydana.base.config.Config" title="ydana.base.config.Config"><em>Config</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Existing config instance or path to a YAML config file.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ydana.base.config.Config" title="ydana.base.config.Config"><em>Config</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-ydana.base.ntuple">NTuple — file loader for ROOT and Parquet files using coffea and dask-awkward.</p>
+<section id="overview">
+<h2>Overview:<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ROOT (.root):</dt><dd><ul class="simple">
+<li><p>Parses schema from config or per-dataset key.</p></li>
+<li><p>Optionally partitions fileset if step_size is set.</p></li>
+<li><p>Loads events lazily with NanoEventsFactory (dask mode).</p></li>
+<li><p>Injects constant fields from schema.</p></li>
+<li><p>Executes pre-steps pipeline.</p></li>
+</ul>
+</dd>
+<dt>Parquet (.parquet):</dt><dd><ul class="simple">
+<li><p>Loads lazily with dask_awkward.from_parquet.</p></li>
+<li><p>Executes pre-steps pipeline.</p></li>
+</ul>
+</dd>
+<dt>Input resolution:</dt><dd><ul class="simple">
+<li><p>inputs: explicit files → dak.Array</p></li>
+<li><p>datasets: named filesets from config → dict[str, dak.Array]</p></li>
+<li><p>neither: loads all filesets from config → dict[str, dak.Array]</p></li>
+</ul>
+</dd>
+<dt>Multiple datasets:</dt><dd><ul class="simple">
+<li><p>events is dict[str, dak.Array], keeping datasets separate.</p></li>
+</ul>
+</dd>
+<dt>Per-dataset config keys:</dt><dd><ul class="simple">
+<li><p>treename: tree path</p></li>
+<li><p>schema: schema override</p></li>
+<li><p>step_size: entries per partition</p></li>
+<li><p>split_row_groups: Parquet row-group splitting</p></li>
+<li><p>metadata: arbitrary dict attached to ntuple.metadata[name]</p></li>
+</ul>
+</dd>
+</dl>
+<p>tree_name in constructor is a global override, can be a list[str] matching datasets.</p>
+<dl>
+<dt>Public usage:</dt><dd><p>ntuple = NTuple(“/path/to/dir/”, tree_name=”Events”)
+ntuple = NTuple(datasets=[“DY”, “Zprime”])
+ntuple = NTuple()</p>
+<p>ntuple.events                            # dak.Array or dict[str, dak.Array]
+ntuple.events[“digis”][“BX”].compute()   # single dataset
+ntuple.events[“DY”][“digis”][“BX”].compute()  # multi-dataset</p>
+</dd>
+<dt>Input formats:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file.root</span></code>                              single ROOT file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/dir/*.root</span></code>                            glob pattern</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/dir/</span></code>                                  directory (finds ROOT or Parquet files)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[&quot;a.root&quot;,</span> <span class="pre">&quot;b.root&quot;]</span></code>                 list of files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{&quot;file.root&quot;:</span> <span class="pre">&quot;tree&quot;,</span> <span class="pre">...}</span></code>          dict (uproot-native)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{&quot;file.root&quot;:</span> <span class="pre">{&quot;object_path&quot;:</span> <span class="pre">&quot;ttree_v1&quot;,</span> <span class="pre">&quot;steps&quot;:</span> <span class="pre">[[0,</span> <span class="pre">10000],</span> <span class="pre">[15000,</span> <span class="pre">20000],</span> <span class="pre">...]}}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output.parquet</span></code>                         single Parquet file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[&quot;a.parquet&quot;,</span> <span class="pre">&quot;b.parquet&quot;]</span></code>           list of Parquet files</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="ydana.base.ntuple.NTuple">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ydana.base.ntuple.</span></span><span class="sig-name descname"><span class="pre">NTuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxfiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_row_groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'root'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CONFIG</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/ntuple.html#NTuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.ntuple.NTuple" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>NTuple loader for ROOT and Parquet files.</p>
+<p>Loads ROOT files lazily via coffea.NanoEventsFactory or Parquet files via
+dask_awkward.from_parquet.</p>
+<dl class="simple">
+<dt>Input resolution:</dt><dd><ul class="simple">
+<li><p>inputs: explicit files → dak.Array</p></li>
+<li><p>datasets: named filesets from config → dict[str, dak.Array]</p></li>
+<li><p>neither: loads all filesets from config → dict[str, dak.Array]</p></li>
+</ul>
+</dd>
+<dt>Multiple datasets:</dt><dd><ul class="simple">
+<li><p>events is dict[str, dak.Array], keeping datasets separate.</p></li>
+</ul>
+</dd>
+<dt>Per-dataset config keys:</dt><dd><ul class="simple">
+<li><p>treename: tree path</p></li>
+<li><p>schema: schema override</p></li>
+<li><p>step_size: entries per partition</p></li>
+<li><p>split_row_groups: Parquet row-group splitting</p></li>
+<li><p>metadata: arbitrary dict attached to ntuple.metadata[name]</p></li>
+</ul>
+</dd>
+<dt>Parameters:</dt><dd><p>inputs: str, list, dict, or None (explicit input path, mutually exclusive with datasets)
+maxfiles: int (cap on files per dataset, -1 = all)
+datasets: str, list[str], or None (named datasets to load, [] = all filesets)
+tree_name: str | list[str] | None (TTree path, str = same for all, list = one per dataset)
+step_size: int (ROOT: entries per partition)
+split_row_groups: bool (Parquet: one partition per row group)
+in_format: {“root”, “parquet”} (input file format)
+CONFIG: Config (defaults to <a class="reference internal" href="#ydana.base.config.get_run_config" title="ydana.base.config.get_run_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_run_config()</span></code></a>)
+verbose: bool (print info summary)</p>
+</dd>
+<dt>Attributes:</dt><dd><p>events: dak.Array or dict[str, dak.Array] (single lazy array or per-dataset mapping)
+metadata: dict or dict[str, dict] (flat dict or per-dataset mapping)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>maxfiles</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>datasets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>tree_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>step_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>split_row_groups</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>in_format</strong> (<em>Literal</em><em>[</em><em>'root'</em><em>, </em><em>'parquet'</em><em>]</em>)</p></li>
+<li><p><strong>CONFIG</strong> (<a class="reference internal" href="#ydana.base.config.Config" title="ydana.base.config.Config"><em>Config</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.ntuple.NTuple.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/ntuple.html#NTuple.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.ntuple.NTuple.info" title="Link to this definition"></a></dt>
+<dd><p>Print a human-readable summary of the loaded NTuple.
+Shows loaded datasets, file listing, and partition counts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_files</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>indent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-ydana.base.histos">Histogram module — <code class="docutils literal notranslate"><span class="pre">Histogram</span></code> wrapper + fill / I/O helpers.</p>
+<p>The core class is <a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a>, which pairs a <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code>
+with a fill function.  The fill function maps an events array to a dict of named arrays, which
+are then passed as kwargs to the underlying histogram’s <code class="docutils literal notranslate"><span class="pre">fill()</span></code> method.  The type of the events
+array determines the fill path:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dask_awkward.Array</span></code> → lazy fill via <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code>; builds a Dask task graph inside the
+histogram, no compute triggered.  Call <code class="docutils literal notranslate"><span class="pre">dask.compute(histo.h)</span></code> (or use the module-level
+<a class="reference internal" href="#ydana.base.histos.fill" title="ydana.base.histos.fill"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill()</span></code></a>) to materialise.</p></li>
+<li><p>Any other array type (e.g. <code class="docutils literal notranslate"><span class="pre">awkward.Array</span></code>, numpy) → synchronous fill via a <code class="docutils literal notranslate"><span class="pre">hist.Hist</span></code>
+accumulator (no Dask).  All proxied attributes (<code class="docutils literal notranslate"><span class="pre">values()</span></code>, <code class="docutils literal notranslate"><span class="pre">plot1d()</span></code>, etc.) then reflect
+this eagerly filled histogram.</p></li>
+</ul>
+<section id="module-level-functions">
+<h2>Module-level functions<a class="headerlink" href="#module-level-functions" title="Link to this heading"></a></h2>
+<p>Histogram   : wrapper (public; usually imported directly by users)
+expand      : parametrised histogram factory (public; replaces <code class="docutils literal notranslate"><span class="pre">foreach</span></code>)
+fill        : lazy or eager fill + optional ROOT output (public)
+to_root     : write materialised histograms to ROOT (public)
+from_config : load histogram list from Config (internal only)</p>
+</section>
+<section id="lazy-fill-mechanics">
+<h2>Lazy fill mechanics<a class="headerlink" href="#lazy-fill-mechanics" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">histo.h</span></code> is already a <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code> from <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.
+Calling <code class="docutils literal notranslate"><span class="pre">histo.fill(dak_events)</span></code> calls <code class="docutils literal notranslate"><span class="pre">self.h.fill(**dict_of_dak_cols)</span></code>
+which builds a Dask task graph inside <code class="docutils literal notranslate"><span class="pre">self.h</span></code> — <strong>no compute</strong>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dask.compute(*[h.h</span> <span class="pre">for</span> <span class="pre">h</span> <span class="pre">in</span> <span class="pre">histos])</span></code> triggers a <strong>single</strong> scheduler
+call that optimises the shared task graph and returns <code class="docutils literal notranslate"><span class="pre">list[hist.Hist]</span></code>
+(one materialised histogram per wrapper).</p>
+</section>
+<section id="per-partition-fill">
+<h2>Per-partition fill<a class="headerlink" href="#per-partition-fill" title="Link to this heading"></a></h2>
+<p>Instead of an in-memory tree-reduce, <code class="docutils literal notranslate"><span class="pre">events.to_delayed()</span></code> slices the
+array into individual delayed partitions. Each partition is passed to a
+delayed worker (<code class="docutils literal notranslate"><span class="pre">_write_partition_histos</span></code>) as an eager <code class="docutils literal notranslate"><span class="pre">awkward.Array</span></code>.
+The worker fills standard <code class="docutils literal notranslate"><span class="pre">hist.Hist</span></code> objects locally and writes them
+directly to disk, making the process highly performant and resume-safe.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="ydana.base.histos.Histogram">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ydana.base.histos.</span></span><span class="sig-name descname"><span class="pre">Histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/histos.html#Histogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.histos.Histogram" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Thin wrapper pairing a <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code> with a fill function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*axes</strong> (<em>hist.axis.*</em>) – Axis definitions forwarded directly to <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code>.
+Axis <code class="docutils literal notranslate"><span class="pre">name</span></code> attributes must match the keys returned by <em>func</em>.</p></li>
+<li><p><strong>func</strong> (<em>callable</em><em>(</em><em>events</em><em>) </em><em>-&gt; dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>array</em><em>]</em>) – Maps an events array to a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of named arrays.
+Keys must match the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute of each axis in <code class="docutils literal notranslate"><span class="pre">*axes</span></code>.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Human label for logging and ROOT output.
+Defaults to the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute of the first axis.</p></li>
+<li><p><strong>storage</strong> (<em>bh.storage.*</em><em>, </em><em>optional</em>) – boost-histogram storage type (e.g. <code class="docutils literal notranslate"><span class="pre">hist.storage.Weight()</span></code>).
+Defaults to <code class="docutils literal notranslate"><span class="pre">hist.storage.Double()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>All <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code> attributes and methods are transparently
+proxied via <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code>:  <code class="docutils literal notranslate"><span class="pre">histo.plot1d()</span></code>, <code class="docutils literal notranslate"><span class="pre">histo.axes</span></code>,
+<code class="docutils literal notranslate"><span class="pre">histo.values()</span></code>, <code class="docutils literal notranslate"><span class="pre">histo.reset()</span></code>, slicing, <code class="docutils literal notranslate"><span class="pre">histo.to_hist()</span></code>,
+etc. all work directly on the wrapper.</p>
+<p class="rubric">Examples</p>
+<p>1-D:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Histogram</span><span class="p">(</span>
+    <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$p_T$ [GeV]&quot;</span><span class="p">),</span>
+    <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ev</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">ev</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;pt&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]},</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LeadingMuon_pt&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Efficiency (<code class="docutils literal notranslate"><span class="pre">hist.axis.Boolean</span></code> — 2-bin True/False):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Histogram</span><span class="p">(</span>
+    <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;wh&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Wheel&quot;</span><span class="p">),</span>
+    <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pass&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Has matched TP&quot;</span><span class="p">),</span>
+    <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ev</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;wh&quot;</span><span class="p">:</span>   <span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;wh&quot;</span><span class="p">][</span><span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;st&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="s2">&quot;pass&quot;</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">num</span><span class="p">(</span><span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;matched_tps&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                      <span class="p">[</span><span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;st&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;eff_MB1&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Weighted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Histogram</span><span class="p">(</span>
+    <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">),</span>
+    <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ev</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">ev</span><span class="p">[</span><span class="s2">&quot;genmuons&quot;</span><span class="p">][</span><span class="s2">&quot;pt&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span>
+                      <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">ev</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]},</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LeadingMuon_pt_weighted&quot;</span><span class="p">,</span>
+    <span class="n">storage</span><span class="o">=</span><span class="n">hist</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Weight</span><span class="p">(),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.histos.Histogram.fill">
+<span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/histos.html#Histogram.fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.histos.Histogram.fill" title="Link to this definition"></a></dt>
+<dd><p>Fill from events.</p>
+<p>Calls <code class="docutils literal notranslate"><span class="pre">self.func(events)</span></code> -&gt; dict of named arrays, then fills the
+appropriate underlying histogram:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dak.Array</span></code> inputs -&gt; lazy fill via <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist</span></code>; builds a
+Dask task graph inside <code class="docutils literal notranslate"><span class="pre">self.h</span></code>, no compute triggered.
+Call <code class="docutils literal notranslate"><span class="pre">dask.compute(histo.h)</span></code> (or use the module-level
+<a class="reference internal" href="#ydana.base.histos.fill" title="ydana.base.histos.fill"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill()</span></code></a>) to materialise.</p></li>
+<li><p>Any other input (<code class="docutils literal notranslate"><span class="pre">ak.Array</span></code>, numpy, …) -&gt; synchronous fill via a
+<code class="docutils literal notranslate"><span class="pre">hist.Hist</span></code> accumulator (<code class="docutils literal notranslate"><span class="pre">self._eager_h</span></code>).  All proxied
+attributes (<code class="docutils literal notranslate"><span class="pre">values()</span></code>, <code class="docutils literal notranslate"><span class="pre">plot1d()</span></code>, etc.) then reflect this
+eagerly filled histogram.</p></li>
+</ul>
+<p>Extra keyword arguments (<code class="docutils literal notranslate"><span class="pre">weight=</span></code>, <code class="docutils literal notranslate"><span class="pre">sample=</span></code>, <code class="docutils literal notranslate"><span class="pre">threads=</span></code>, …)
+are forwarded to the underlying <code class="docutils literal notranslate"><span class="pre">fill()</span></code> call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> (<em>Array</em><em> | </em><em>Array</em>)</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ydana.base.histos.Histogram.h">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">h</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Hist</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Hist</span></span><a class="headerlink" href="#ydana.base.histos.Histogram.h" title="Link to this definition"></a></dt>
+<dd><p>Return the active underlying histogram object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.histos.expand">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.histos.</span></span><span class="sig-name descname"><span class="pre">expand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histo</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/histos.html#expand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.histos.expand" title="Link to this definition"></a></dt>
+<dd><p>Build a list of <a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> objects over a parameter range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>histo</strong> (<a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><em>Histogram</em></a>) – Template histogram to use for each value. <cite>func</cite> should be written to accept the parameter
+as a kwarg, e.g. <code class="docutils literal notranslate"><span class="pre">st=1</span></code>.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Parameter values to expand over (e.g. station numbers <code class="docutils literal notranslate"><span class="pre">st=[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4]</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><em>Histogram</em></a>]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">hist</span><span class="o">,</span><span class="w"> </span><span class="nn">awkward</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ak</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ydana.base.histos</span><span class="w"> </span><span class="kn">import</span> <span class="n">expand</span><span class="p">,</span> <span class="n">Histogram</span>
+
+<span class="n">histos</span> <span class="o">+=</span> <span class="n">expand</span><span class="p">(</span>
+    <span class="n">histo</span><span class="o">=</span><span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Regular</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;wh&quot;</span><span class="p">),</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pass&quot;</span><span class="p">),</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ev</span><span class="p">,</span> <span class="n">st</span><span class="o">=</span><span class="n">st</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;wh&quot;</span><span class="p">:</span>   <span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;wh&quot;</span><span class="p">][</span><span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;st&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">st</span><span class="p">],</span>
+            <span class="s2">&quot;pass&quot;</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">num</span><span class="p">(</span><span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;matched_tps&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                          <span class="p">[</span><span class="n">ev</span><span class="p">[</span><span class="s2">&quot;segments&quot;</span><span class="p">][</span><span class="s2">&quot;st&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">st</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;eff_MB</span><span class="si">{</span><span class="n">st</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">st</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.histos.from_config">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.histos.</span></span><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/histos.html#from_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.histos.from_config" title="Link to this definition"></a></dt>
+<dd><p>Load histogram list from a Config instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference internal" href="#ydana.base.config.Config" title="ydana.base.config.Config"><em>Config</em></a><em> or </em><em>None</em>) – <p>Configuration object with histogram loading metadata.
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses <code class="xref py py-data docutils literal notranslate"><span class="pre">RUN_CONFIG</span></code>.</p>
+<p>Expected attributes/keys:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">histo_sources</span></code><span class="classifier">list[str]</span></dt><dd><p>Dotted module paths to load histograms from.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">histo_names</span></code><span class="classifier">list[str], optional</span></dt><dd><p>If provided, only histograms with these names are included.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">histograms</span></code><span class="classifier">object or dict, optional</span></dt><dd><p>Container holding <code class="docutils literal notranslate"><span class="pre">histo_sources</span></code> and <code class="docutils literal notranslate"><span class="pre">histo_names</span></code>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Histogram instances from config, optionally filtered by name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram">Histogram</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><strong>RuntimeError</strong></a> – If <em>config</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code> and global <code class="xref py py-data docutils literal notranslate"><span class="pre">RUN_CONFIG</span></code> was not set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.histos.to_root">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.histos.</span></span><span class="sig-name descname"><span class="pre">to_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/histos.html#to_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.histos.to_root" title="Link to this definition"></a></dt>
+<dd><p>Write histograms to a ROOT file via uproot.</p>
+<p>Accepts <a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> wrappers, dictionaries of wrappers,
+or raw <code class="docutils literal notranslate"><span class="pre">hist.Hist</span></code> / <code class="docutils literal notranslate"><span class="pre">bh.Histogram</span></code> objects. uproot’s UHI dispatch
+auto-selects <code class="docutils literal notranslate"><span class="pre">TH1D</span></code> / <code class="docutils literal notranslate"><span class="pre">TH2D</span></code> / <code class="docutils literal notranslate"><span class="pre">TH3D</span></code> (up to 3 dimensions).</p>
+<p>If a histogram contains a <code class="docutils literal notranslate"><span class="pre">hist.axis.Boolean</span></code> axis (e.g., for efficiency),
+it is automatically split into two ROOT histograms:
+<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_num</span></code> (True) and <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_den</span></code> (sum of True + False).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>histos</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><em>Histogram</em></a><em>, or </em><em>hist.Hist</em>) – The histogram(s) to save. Can be a single object, a list of objects,
+or a dictionary mapping names to objects.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Output <code class="docutils literal notranslate"><span class="pre">.root</span></code> file path. Parent directories are created if needed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.histos.fill">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.histos.</span></span><span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_partition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/histos.html#fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.histos.fill" title="Link to this definition"></a></dt>
+<dd><p>Fill histograms from events and (optionally) write ROOT output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>histos</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#ydana.base.histos.Histogram" title="ydana.base.histos.Histogram"><em>Histogram</em></a><em>]</em>) – Histogram wrapper definitions to fill.</p></li>
+<li><p><strong>events</strong> (<em>dak.Array</em><em> or </em><a class="reference external" href="https://awkward-array.org/doc/main/reference/generated/ak.Array.html#ak.Array" title="(in Awkward Array v2.9)"><em>ak.Array</em></a>) – <p>Event data. The type determines the fill path:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">dak.Array</span></code> → lazy; a single <code class="docutils literal notranslate"><span class="pre">dask.compute</span></code> is triggered
+at the end, optimising the shared task graph across all histograms.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ak.Array</span></code>  → synchronous fill via boost-histogram (no Dask).</p></li>
+</ul>
+</p></li>
+<li><p><strong>outfolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Root output directory. A <code class="docutils literal notranslate"><span class="pre">histograms/</span></code> sub-folder is created.</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – String appended to the output filename,
+e.g. <code class="docutils literal notranslate"><span class="pre">&quot;_v2&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">histograms_v2.root</span></code>.</p></li>
+<li><p><strong>per_partition</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – (<em>Lazy path only</em>) Write one ROOT file per Dask partition under
+<code class="docutils literal notranslate"><span class="pre">&lt;outfolder&gt;/histograms/histograms{tag}_NNNN.root</span></code>.
+Existing files are skipped (resume-safe).
+Bypasses tree-reduce by mapping delayed tasks over array partitions.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Re-process and overwrite existing per-partition files.
+Ignored when <em>per_partition</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>ncores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Scheduler hint: <code class="docutils literal notranslate"><span class="pre">1</span></code> = synchronous, <code class="docutils literal notranslate"><span class="pre">-1</span></code> = dask default,
+<code class="docutils literal notranslate"><span class="pre">&gt;1</span></code> = N local process workers.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Human-readable label for log messages (e.g. dataset name).</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to print log messages about the fill progress and output paths.</p></li>
+<li><p><strong>save</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to save the filled histograms to ROOT files. Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to
+only perform the fill in-memory and return the results without writing to disk.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping histogram names to their materialised objects.
+Returns an empty dictionary <code class="docutils literal notranslate"><span class="pre">{}</span></code> for per-partition mode (results
+are saved directly to disk to preserve memory).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, hist.Hist]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Lazy (dak.Array) — in-memory path</strong>:
+Each <code class="docutils literal notranslate"><span class="pre">histo.fill(events)</span></code> call invokes <code class="docutils literal notranslate"><span class="pre">hist.dask.Hist.fill</span></code> with
+<code class="docutils literal notranslate"><span class="pre">dak.Array</span></code> kwargs, appending to the internal task graph.
+<code class="docutils literal notranslate"><span class="pre">dask.compute(*[h.h</span> <span class="pre">for</span> <span class="pre">h</span> <span class="pre">in</span> <span class="pre">histos])</span></code> materialises everything in a
+single scheduler pass. The original wrapper objects are updated <strong>in-place</strong>,
+and a dictionary of the final objects is returned.</p>
+<p><strong>Lazy (dak.Array) — per-partition path</strong>:
+Uses <code class="docutils literal notranslate"><span class="pre">events.to_delayed()</span></code> to slice the array. A delayed worker
+receives the eager <code class="docutils literal notranslate"><span class="pre">awkward.Array</span></code>, computes the columns, fills
+standard histograms locally, and writes directly to disk. Original
+in-memory wrappers remain empty.</p>
+<p><strong>Eager (ak.Array)</strong>:
+The wrapper bypasses Dask entirely and routes the array to a synchronous
+<code class="docutils literal notranslate"><span class="pre">hist.Hist</span></code> accumulator. The original wrapper objects are updated
+<strong>in-place</strong>, and a dictionary of the final objects is returned.</p>
+</dd></dl>
+
+<p id="module-ydana.base.schema">YAMLSchema — coffea BaseSchema subclass for ROOT ntuple files.</p>
+<p><strong>Structural (schema) pass only.</strong>  No actual array data is read here; the
+schema operates exclusively on <code class="docutils literal notranslate"><span class="pre">base_form</span></code> (the Awkward <em>description</em> of
+the data).</p>
+<section id="what-it-does">
+<h2>What it does<a class="headerlink" href="#what-it-does" title="Link to this heading"></a></h2>
+<p>Reads the <code class="docutils literal notranslate"><span class="pre">Schema</span></code> mapping from the YAML config.  For each collection entry
+(dict-valued key) it calls <code class="xref py py-func docutils literal notranslate"><span class="pre">zip_forms()</span></code>
+to group the individual branch forms into a single <strong>jagged record</strong> with
+<code class="docutils literal notranslate"><span class="pre">__record__</span> <span class="pre">=</span> <span class="pre">&quot;Particle&quot;</span></code> so Awkward dispatches to
+<a class="reference internal" href="#ydana.base.particle.ParticleRecord" title="ydana.base.particle.ParticleRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParticleRecord</span></code></a>.</p>
+<p>Top-level string-valued entries become flat event-level scalar fields.
+Numeric-valued entries are <em>constants</em> — injected after the factory returns
+the dask array (see <code class="xref py py-func docutils literal notranslate"><span class="pre">_inject_constants()</span></code> in <code class="docutils literal notranslate"><span class="pre">ntuple.py</span></code>).</p>
+</section>
+<section id="config-injection">
+<h2>Config injection<a class="headerlink" href="#config-injection" title="Link to this heading"></a></h2>
+<p>Because <code class="docutils literal notranslate"><span class="pre">NanoEventsFactory</span></code> calls <code class="docutils literal notranslate"><span class="pre">schemaclass(base_form)</span></code> with no extra
+arguments, config injection is done via <a class="reference internal" href="#ydana.base.schema.YAMLSchema.with_config" title="ydana.base.schema.YAMLSchema.with_config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">YAMLSchema.with_config()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">schema_cls</span> <span class="o">=</span> <span class="n">YAMLSchema</span><span class="o">.</span><span class="n">with_config</span><span class="p">(</span><span class="n">schema_map</span><span class="p">)</span>        <span class="c1"># schema_map = config[&quot;Schema&quot;] dict</span>
+<span class="n">factory</span> <span class="o">=</span> <span class="n">NanoEventsFactory</span><span class="o">.</span><span class="n">from_root</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">schemaclass</span><span class="o">=</span><span class="n">schema_cls</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="ydana.base.schema.YAMLSchema">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ydana.base.schema.</span></span><span class="sig-name descname"><span class="pre">YAMLSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/schema.html#YAMLSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.schema.YAMLSchema" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSchema</span></code></p>
+<p>Groups flat ntuple branches into nested Awkward particle records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_form</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – The Awkward form dict produced by uproot/coffea (already pre-filtered
+to the allow-listed branches before this class is instantiated).</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">schema_map</span></code> (the value of the <code class="docutils literal notranslate"><span class="pre">Schema:</span></code> key in YAML) is bound at
+the class level via <a class="reference internal" href="#ydana.base.schema.YAMLSchema.with_config" title="ydana.base.schema.YAMLSchema.with_config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">with_config()</span></code></a> before this constructor is called
+by coffea.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.schema.YAMLSchema.with_config">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">with_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/schema.html#YAMLSchema.with_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.schema.YAMLSchema.with_config" title="Link to this definition"></a></dt>
+<dd><p>Return a subclass of <em>YAMLSchema</em> pre-bound to <em>schema_map</em>.</p>
+<p><em>schema_map</em> is the value of the <code class="docutils literal notranslate"><span class="pre">Schema:</span></code> key in the YAML config
+(a plain dict — not the whole config object).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">schema_cls</span> <span class="o">=</span> <span class="n">YAMLSchema</span><span class="o">.</span><span class="n">with_config</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Schema&quot;</span><span class="p">])</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">NanoEventsFactory</span><span class="o">.</span><span class="n">from_root</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">schemaclass</span><span class="o">=</span><span class="n">schema_cls</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>schema_map</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.14)">type</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.schema.YAMLSchema.behavior">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">behavior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/schema.html#YAMLSchema.behavior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.schema.YAMLSchema.behavior" title="Link to this definition"></a></dt>
+<dd><p>Return the combined Event + Particle behavior dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-ydana.base.pipeline">Pipeline executor for YAML-driven columnar analysis workflows.</p>
+<section id="topological-ordering">
+<h2>Topological ordering<a class="headerlink" href="#topological-ordering" title="Link to this heading"></a></h2>
+<p>Steps are grouped by dependency depth (level 0 = no dependencies, level 1 =
+depends on at least one level-0 step, etc.).  Within each level, <strong>selectors
+run before preprocessors</strong> to discard unwanted events/particles as early as
+possible before any expensive computation.</p>
+</section>
+<section id="step-semantics">
+<h2>Step semantics<a class="headerlink" href="#step-semantics" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">selector</span></code>, no <code class="docutils literal notranslate"><span class="pre">target</span></code> — event-level filter:
+<code class="docutils literal notranslate"><span class="pre">events</span> <span class="pre">=</span> <span class="pre">events[fn(events)]</span></code>   where <code class="docutils literal notranslate"><span class="pre">fn</span></code> returns <code class="docutils literal notranslate"><span class="pre">bool[nevents]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">selector</span></code>, with <code class="docutils literal notranslate"><span class="pre">target:</span> <span class="pre">&quot;tps&quot;</span></code> — particle-level filter:
+<code class="docutils literal notranslate"><span class="pre">mask</span> <span class="pre">=</span> <span class="pre">fn(events)</span></code>  (bool per particle, variable-length)
+<code class="docutils literal notranslate"><span class="pre">events</span> <span class="pre">=</span> <span class="pre">ak.with_field(events,</span> <span class="pre">events[&quot;tps&quot;][mask],</span> <span class="pre">&quot;tps&quot;)</span></code></p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">preprocessor</span></code> — arbitrary transform:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">fn(events)</span></code>  where <code class="docutils literal notranslate"><span class="pre">fn</span></code> <strong>mutates</strong> the event array directly using
+<code class="docutils literal notranslate"><span class="pre">events[&quot;field&quot;]</span> <span class="pre">=</span> <span class="pre">value</span></code> (leverages <code class="docutils literal notranslate"><span class="pre">ak.Array.__setitem__</span></code> /
+<code class="docutils literal notranslate"><span class="pre">dak.Array.__setitem__</span></code>).  No return value is used.  For nested
+collections use <code class="docutils literal notranslate"><span class="pre">events[&quot;col&quot;]</span> <span class="pre">=</span> <span class="pre">ak.with_field(events[&quot;col&quot;],</span> <span class="pre">…,</span> <span class="pre">&quot;key&quot;)</span></code>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="step-definition-keys">
+<h2>Step definition keys<a class="headerlink" href="#step-definition-keys" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">pre-steps:</span></code> key in YAML is a <strong>mapping</strong> (dict), where each key is the
+unique step name.  No <code class="docutils literal notranslate"><span class="pre">name:</span></code> sub-key is needed.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>       — <code class="docutils literal notranslate"><span class="pre">&quot;selector&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;preprocessor&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>     — (selector only) collection name for particle-level filter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">expr</span></code>       — inline Python evaluated with <code class="docutils literal notranslate"><span class="pre">{&quot;events&quot;:</span> <span class="pre">events,</span> <span class="pre">&quot;ak&quot;:</span> <span class="pre">ak}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src</span></code>        — dotted import path to <code class="docutils literal notranslate"><span class="pre">fn(events)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></code>  (mutates in-place)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">needs</span></code>      — list of step names that must run first (default <code class="docutils literal notranslate"><span class="pre">[]</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on</span></code>         — dataset name (str) or list of names this step is restricted
+to.  Omit (or <code class="docutils literal notranslate"><span class="pre">null</span></code>) to apply to every dataset / plain inputs.</p></li>
+</ul>
+<p>Exactly one of <code class="docutils literal notranslate"><span class="pre">expr</span></code> / <code class="docutils literal notranslate"><span class="pre">src</span></code> must be present.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.pipeline.topological_sort">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.pipeline.</span></span><span class="sig-name descname"><span class="pre">topological_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/pipeline.html#topological_sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.pipeline.topological_sort" title="Link to this definition"></a></dt>
+<dd><p>Group pipeline steps by dependency depth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>]</em>) – Mapping from step name to step body as parsed from YAML <code class="docutils literal notranslate"><span class="pre">pre-steps</span></code>.
+The dict key is the canonical step name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dependency levels. Each level contains <code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">step)</span></code> pairs that can
+run in any order relative to each other.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>]]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – Raised when a step references unknown dependencies, when <code class="docutils literal notranslate"><span class="pre">needs</span></code> is
+    not a list, or when a cycle is detected in the graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.pipeline.execute_pipeline">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.pipeline.</span></span><span class="sig-name descname"><span class="pre">execute_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/pipeline.html#execute_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.pipeline.execute_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Execute pipeline steps in dependency order.</p>
+<p>Within each dependency level, <strong>selectors run before preprocessors</strong> to
+reduce the dataset size before any expensive computation.</p>
+<p>Selectors return a boolean mask; the executor applies it internally.
+Preprocessors <strong>mutate</strong> the event array in-place via <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code>
+(<code class="docutils literal notranslate"><span class="pre">events[&quot;field&quot;]</span> <span class="pre">=</span> <span class="pre">value</span></code>); no return value is captured.</p>
+<p>All real parallelism is provided by dask at the file/partition level.
+Step ordering within a level is determined by the <code class="docutils literal notranslate"><span class="pre">needs</span></code> graph
+(topological sort); within the same level, selectors always precede
+preprocessors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> (<a class="reference external" href="https://awkward-array.org/doc/main/reference/generated/ak.Array.html#ak.Array" title="(in Awkward Array v2.9)"><em>ak.Array</em></a><em> or </em><em>dask_awkward.Array</em>) – The loaded event array.  If lazy (dask-awkward), no computation is
+triggered — this function only builds graph nodes.</p></li>
+<li><p><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>]</em>) – Pipeline step definitions as parsed from the YAML <code class="docutils literal notranslate"><span class="pre">pre-steps:</span></code> key.
+Each key is the step name; each value is the step body (<code class="docutils literal notranslate"><span class="pre">type</span></code>,
+<code class="docutils literal notranslate"><span class="pre">expr</span></code>/<code class="docutils literal notranslate"><span class="pre">src</span></code>, optional <code class="docutils literal notranslate"><span class="pre">needs</span></code>, optional <code class="docutils literal notranslate"><span class="pre">target</span></code>,
+optional <code class="docutils literal notranslate"><span class="pre">on</span></code>).</p></li>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Name of the dataset currently being loaded (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;DY&quot;</span></code>).
+Steps whose <code class="docutils literal notranslate"><span class="pre">on</span></code> key does not match this name are skipped.
+<code class="docutils literal notranslate"><span class="pre">None</span></code> / absent <code class="docutils literal notranslate"><span class="pre">on</span></code> → step applies to every dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed event array (still lazy if input was lazy).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://awkward-array.org/doc/main/reference/generated/ak.Array.html#ak.Array" title="(in Awkward Array v2.9)">ak.Array</a> or dask_awkward.Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-ydana.base.io">
+<dt class="sig sig-object py" id="ydana.base.io.dump_to_parquet">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.io.</span></span><span class="sig-name descname"><span class="pre">dump_to_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/io.html#dump_to_parquet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.io.dump_to_parquet" title="Link to this definition"></a></dt>
+<dd><p>Persist the full event array to Parquet, preserving all nesting.</p>
+<p>Unlike ROOT flat NTuples, Parquet natively supports Awkward Array’s
+jagged and nested data structures. The output written by this function
+preserves all cross-references and collections natively, and can be
+reloaded seamlessly by the framework without losing structural information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> (<a class="reference external" href="https://awkward-array.org/doc/main/reference/generated/ak.Array.html#ak.Array" title="(in Awkward Array v2.9)"><em>ak.Array</em></a><em> or </em><em>dak.Array</em>) – <p>The event array to persist. The type determines the output structure:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ak.Array</span></code> (Eager): Writes a single file to
+<code class="docutils literal notranslate"><span class="pre">&lt;outfolder&gt;/dumpedEvents.parquet</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dak.Array</span></code> (Lazy): Writes a partitioned dataset directly into
+<code class="docutils literal notranslate"><span class="pre">&lt;outfolder&gt;/</span></code> with partitioned files (e.g.,
+<code class="docutils literal notranslate"><span class="pre">dumpedEvents-part0.parquet</span></code>).</p></li>
+</ul>
+</p></li>
+<li><p><strong>outfolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Output directory where the Parquet file(s) will be saved. Created
+automatically if it does not exist.</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Suffix appended to the output filename stem.</p></li>
+<li><p><strong>ncores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Dask scheduler hint for lazy arrays. <code class="docutils literal notranslate"><span class="pre">1</span></code> = synchronous (debug),
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> = dask default, <code class="docutils literal notranslate"><span class="pre">&gt;1</span></code> = N local process workers.
+Ignored for eager arrays.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), skips writing if the target file already
+exists.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Human-readable label used in log messages (e.g., dataset name).</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to print log messages and display the progress bar. Defaults
+to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Lazy Execution (Dask):</strong>
+When passed a <code class="docutils literal notranslate"><span class="pre">dask_awkward.Array</span></code>, this function bypasses the default
+blocking behavior of <code class="docutils literal notranslate"><span class="pre">dak.to_parquet</span></code> by passing <code class="docutils literal notranslate"><span class="pre">compute=False</span></code>.
+This allows the framework to execute delayed write operations using the
+specified scheduler environment (<code class="docutils literal notranslate"><span class="pre">ncores</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ydana.base.io.dump_to_root">
+<span class="sig-prename descclassname"><span class="pre">ydana.base.io.</span></span><span class="sig-name descname"><span class="pre">dump_to_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Events/tree'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/io.html#dump_to_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.io.dump_to_root" title="Link to this definition"></a></dt>
+<dd><p>Write an event array to a new ROOT file. For dask like arrays, each partition is written to a
+separate file (e.g., <code class="docutils literal notranslate"><span class="pre">dumpedEvents_000.root</span></code>).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>One-way export only.</strong>
+The output is a <em>flattened</em> representation of the event array — nested
+particle collections are decomposed into <code class="docutils literal notranslate"><span class="pre">{col}_{field}</span></code> branches.
+The nesting information (e.g., that <code class="docutils literal notranslate"><span class="pre">tps_matched_showers_ids</span></code> encodes
+cross-references into the <code class="docutils literal notranslate"><span class="pre">showers</span></code> collection) is not preserved in the
+ROOT file. If you need to <strong>persist the full array structure for later
+re-use</strong>, use <a class="reference internal" href="#ydana.base.io.dump_to_parquet" title="ydana.base.io.dump_to_parquet"><code class="xref py py-func docutils literal notranslate"><span class="pre">dump_to_parquet()</span></code></a> instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> (<a class="reference external" href="https://awkward-array.org/doc/main/reference/generated/ak.Array.html#ak.Array" title="(in Awkward Array v2.9)"><em>ak.Array</em></a><em> or </em><em>dak.Array</em>) – The event array to persist. If a lazy dask-awkward array is passed alongside
+<code class="docutils literal notranslate"><span class="pre">per_partition=False</span></code>, it will be materialized into memory, which may
+cause Out-Of-Memory errors for large datasets.</p></li>
+<li><p><strong>outfolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Output directory where the ROOT file(s) will be saved.</p></li>
+<li><p><strong>treepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – The path and name of the Tree inside the ROOT file. Default is <code class="docutils literal notranslate"><span class="pre">&quot;Events/tree&quot;</span></code>.</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Suffix appended to the output filename stem.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), skips writing if the target file already exists.</p></li>
+<li><p><strong>ncores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Dask scheduler hint for lazy arrays.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Human-readable label used in log messages.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to print log messages and display the progress bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><strong>Branch layout &amp; Fallback:</strong>
+The writer dynamically attempts to create a standard <code class="docutils literal notranslate"><span class="pre">TTree</span></code> for maximum
+compatibility. If the event array contains complex 2D jagged nesting
+(<code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">*</span> <span class="pre">var</span> <span class="pre">*</span> <span class="pre">type</span></code>), it will safely intercept the error and write an
+<code class="docutils literal notranslate"><span class="pre">RNTuple</span></code> instead.</p>
+</dd></dl>
+
+<p id="module-ydana.base.event">Awkward Array behavior class for event records.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EventRecord</span></code>  → <a class="reference external" href="https://awkward-array.org/doc/main/reference/generated/ak.Record.html#ak.Record" title="(in Awkward Array v2.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ak.Record</span></code></a> subclass dispatched for <code class="docutils literal notranslate"><span class="pre">behavior[&quot;Event&quot;]</span></code></p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">behavior</span></code>     → dict combining Event + Particle behaviors</dt><dd><p>for <code class="xref py py-class docutils literal notranslate"><span class="pre">NanoEventsFactory</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The class and behavior key names are intentionally generic.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ydana.base.event.EventRecord">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ydana.base.event.</span></span><span class="sig-name descname"><span class="pre">EventRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">behavior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_valid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/event.html#EventRecord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.event.EventRecord" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Record</span></code></p>
+<p>Single event record, backed by a lazy Awkward array slice.</p>
+<p>Dispatched automatically by Awkward when the top-level array has
+<code class="docutils literal notranslate"><span class="pre">__record__</span> <span class="pre">=</span> <span class="pre">&quot;Event&quot;</span></code> in its parameters (set by <code class="docutils literal notranslate"><span class="pre">YAMLSchema</span></code>).</p>
+<p>Equivalent to the old <code class="docutils literal notranslate"><span class="pre">Event</span></code> class but without per-event Python objects.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="ydana.base.event.EventRecord.id">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><a class="headerlink" href="#ydana.base.event.EventRecord.id" title="Link to this definition"></a></dt>
+<dd><p>Numeric identifier for this event.</p>
+<p>Computed once and cached.  Scans the event fields for one whose name
+matches a common event-ID pattern (<code class="docutils literal notranslate"><span class="pre">event</span></code>, <code class="docutils literal notranslate"><span class="pre">run</span></code>, <code class="docutils literal notranslate"><span class="pre">number</span></code>,
+<code class="docutils literal notranslate"><span class="pre">index</span></code>, <code class="docutils literal notranslate"><span class="pre">idx</span></code>, …) and returns its value directly.  Falls back
+to the positional index within the parent array (<code class="docutils literal notranslate"><span class="pre">layout.at</span></code>) when
+no such field is present.</p>
+<p>The raw value (int, numpy scalar, …) is returned — not a string —
+so callers can compare, format, or log it as needed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.event.EventRecord.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indentLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/event.html#EventRecord.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.event.EventRecord.show" title="Link to this definition"></a></dt>
+<dd><p>Verbose summary of all fields in this event record.</p>
+<section id="visual-convention">
+<h2>Visual convention<a class="headerlink" href="#visual-convention" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Yellow  : event header</p></li>
+<li><p>Cyan    : particle collection label  (field has nested sub-fields)</p></li>
+<li><p>Purple  : particle count</p></li>
+<li><p>Green   : scalar field label</p></li>
+<li><p>(none)  : scalar field value</p></li>
+</ul>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>indentLevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-ydana.base.particle">Awkward Array behavior classes for particle records and collections.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ParticleRecord</span></code>  → <a class="reference external" href="https://awkward-array.org/doc/main/reference/generated/ak.Record.html#ak.Record" title="(in Awkward Array v2.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ak.Record</span></code></a> subclass dispatched for <code class="docutils literal notranslate"><span class="pre">behavior[&quot;Particle&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">behavior</span></code>        → dict to be passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">coffea.nanoevents.NanoEventsFactory.from_root()</span></code></p></li>
+</ul>
+<p>The class and behavior key names are intentionally generic so this package is
+reusable across different ntuple schemas and analysis domains.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ydana.base.particle.ParticleRecord">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ydana.base.particle.</span></span><span class="sig-name descname"><span class="pre">ParticleRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">behavior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_valid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/particle.html#ParticleRecord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.particle.ParticleRecord" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Record</span></code></p>
+<p>Single particle record (one row of a jagged particle collection).</p>
+<p>Dispatched automatically by Awkward when the inner <code class="docutils literal notranslate"><span class="pre">__record__</span></code> parameter
+of the collection is <code class="docutils literal notranslate"><span class="pre">&quot;Particle&quot;</span></code>.</p>
+<p>Equivalent to the old per-event <code class="docutils literal notranslate"><span class="pre">Particle</span></code> instance but backed by a lazy
+Awkward slice rather than in-memory Python attributes.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="ydana.base.particle.ParticleRecord.id">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><a class="headerlink" href="#ydana.base.particle.ParticleRecord.id" title="Link to this definition"></a></dt>
+<dd><p>Numeric identifier for this particle within its collection.</p>
+<p>Computed once and cached.  Scans the particle fields for one whose
+name matches a common index pattern (<code class="docutils literal notranslate"><span class="pre">idx</span></code>, <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">index</span></code>,
+<code class="docutils literal notranslate"><span class="pre">num</span></code>, …) and returns its value directly.  Falls back to the
+positional index within the parent array (<code class="docutils literal notranslate"><span class="pre">layout.at</span></code>) when no
+such field is present.</p>
+<p>The raw value is returned — not a string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.particle.ParticleRecord.ids_from_array">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ids_from_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/particle.html#ParticleRecord.ids_from_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.particle.ParticleRecord.ids_from_array" title="Link to this definition"></a></dt>
+<dd><p>Return the <code class="docutils literal notranslate"><span class="pre">id</span></code> column for an array of <code class="docutils literal notranslate"><span class="pre">ParticleRecord</span></code> elements.</p>
+<p>Array-level equivalent of <a class="reference internal" href="#ydana.base.particle.ParticleRecord.id" title="ydana.base.particle.ParticleRecord.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a>, used when operating on a full
+(possibly doubly-jagged) array rather than a single record:</p>
+<ul class="simple">
+<li><p>If any field in the array matches <code class="xref py py-attr docutils literal notranslate"><span class="pre">_IDX_PATTERN</span></code>, return that
+column (<code class="docutils literal notranslate"><span class="pre">array[id_field]</span></code>).</p></li>
+<li><p>Otherwise fall back to <code class="docutils literal notranslate"><span class="pre">ak.local_index(array,</span> <span class="pre">axis=-1)</span></code>, which
+produces the positional index of each element — identical to
+<code class="docutils literal notranslate"><span class="pre">layout.at</span></code> used by <a class="reference internal" href="#ydana.base.particle.ParticleRecord.id" title="ydana.base.particle.ParticleRecord.id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">id</span></code></a> on a single record.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong> (<em>Array</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Array</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ydana.base.particle.ParticleRecord.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indentLevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/particle.html#ParticleRecord.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.particle.ParticleRecord.show" title="Link to this definition"></a></dt>
+<dd><p>Human-readable summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indentLevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>include</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><em>Iterable</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>exclude</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><em>Iterable</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ydana.base.particle.ParticleArray">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ydana.base.particle.</span></span><span class="sig-name descname"><span class="pre">ParticleArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">behavior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_valid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ydana/base/particle.html#ParticleArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ydana.base.particle.ParticleArray" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></p>
+<p>Collection of particle records.</p>
+<p>Dispatched automatically by Awkward for columnar collection access
+(<code class="docutils literal notranslate"><span class="pre">events[&quot;digis&quot;]</span></code>).  Single-event slices (<code class="docutils literal notranslate"><span class="pre">events[0][&quot;digis&quot;]</span></code>)
+return a plain <code class="docutils literal notranslate"><span class="pre">ak.Array</span></code> — use columnar access for best results.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="ydana.base.particle.ParticleArray.id">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Array</span></span><a class="headerlink" href="#ydana.base.particle.ParticleArray.id" title="Link to this definition"></a></dt>
+<dd><p>Vectorized access to particle IDs.</p>
+<p>This allows calling ‘events.particles.id’ on an array of particles,
+consistent with the ‘.id’ property on a single ParticleRecord.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="analysis.html" class="btn btn-neutral float-right" title="Analysis API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

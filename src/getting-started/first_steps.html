@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>First steps &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="YAML Basics" href="yaml_basics.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">First steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisite">Prerequisite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execution-pipeline">Execution pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cli">CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#first-analysis">First analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="yaml_basics.html">YAML Basics</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/index.html">Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Getting started</a></li>
+      <li class="breadcrumb-item active">First steps</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com:uniovi-hepex/ydana-hep/ydana-hep" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="first-steps">
+<h1>First steps<a class="headerlink" href="#first-steps" title="Link to this heading"></a></h1>
+<p>YDANA-HEP is a <strong>declarative</strong> framework. You define <em>what</em> you want to do (your cuts, your variables, your histograms) in simple YAML configurations (see <a class="reference internal" href="yaml_basics.html"><span class="doc">YAML Basics</span></a>), and YDANA-HEP figures out <em>how</em> to execute it optimally using lazy evaluation.</p>
+<section id="prerequisite">
+<h2>Prerequisite<a class="headerlink" href="#prerequisite" title="Link to this heading"></a></h2>
+<p>To get the most out of the framework, it is highly recommended to familiarize yourself with the core technologies powering it under the hood:</p>
+<ul class="simple">
+<li><p><strong>Dask &amp; Dask-Awkward (The Engine):</strong> YDANA-HEP uses lazy evaluation. When you define a histogram or a cut, no data is actually read. Instead, Dask builds a “Task Graph”. The data is only processed when the final <code class="docutils literal notranslate"><span class="pre">.compute()</span></code> is called.</p>
+<ul>
+<li><p><em>Highly Recommended Reading:</em> <a class="reference external" href="https://docs.dask.org/en/stable/10-minutes-to-dask.html">10 Minutes to Dask</a> and the <a class="reference external" href="https://dask-awkward.readthedocs.io/">Dask-Awkward Documentation</a>.</p></li>
+</ul>
+</li>
+<li><p><strong>Awkward Array (The Data Structure):</strong> High Energy Physics data is jagged. Awkward Array allow NumPy-like math on these jagged structures without writing <code class="docutils literal notranslate"><span class="pre">for</span></code> loops.</p>
+<ul>
+<li><p><em>Recommended Reading:</em> <a class="reference external" href="https://awkward-array.org/doc/main/getting_started/index.html">Awkward Array Getting Started</a>.</p></li>
+</ul>
+</li>
+<li><p><strong>Coffea (The I/O):</strong> YDANA-HEP uses Coffea’s <code class="docutils literal notranslate"><span class="pre">NanoEventsFactory</span></code> to map flat ROOT branches into beautiful, object-oriented Awkward arrays, which behind the scena use <code class="docutils literal notranslate"><span class="pre">uproot</span></code> to read ROOT files directly in Python.</p></li>
+</ul>
+</section>
+<section id="execution-pipeline">
+<h2>Execution pipeline<a class="headerlink" href="#execution-pipeline" title="Link to this heading"></a></h2>
+<p>To see how YDANA-HEP maps YAML files to the Dask task graph and processes data, please refer to the detailed execution flow diagram in the <a class="reference internal" href="../core_concepts/yaml_driven_workflow.html"><span class="doc">YAML-Driven Workflow</span></a> guide.</p>
+</section>
+<section id="cli">
+<h2>CLI<a class="headerlink" href="#cli" title="Link to this heading"></a></h2>
+<p>All standard workflows are driven through the <code class="docutils literal notranslate"><span class="pre">ydana</span></code> command-line interface.
+It exposes four subcommands, each handling one stage of the pipeline:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">dump-events</span></code> — reads datasets through the pre-steps pipeline and writes filtered events to ROOT or Parquet files (always per partition).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">fill-histos</span></code> — fills the histograms declared in <code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code> and writes ROOT output. Supports <code class="docutils literal notranslate"><span class="pre">--per-partition</span></code> mode to cap peak memory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-roots</span></code> — merges per-partition event ROOT files into a single output file after a <code class="docutils literal notranslate"><span class="pre">dump-events</span></code> run.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ydana</span> <span class="pre">merge-histos</span></code> — merges per-partition histogram ROOT files into a single output file after a <code class="docutils literal notranslate"><span class="pre">fill-histos</span> <span class="pre">--per-partition</span></code> run.</p></li>
+</ul>
+<p>Two first commands take <code class="docutils literal notranslate"><span class="pre">-cf</span></code> argument to point at your <code class="docutils literal notranslate"><span class="pre">run_config.yaml</span></code>. All of them allows <code class="docutils literal notranslate"><span class="pre">-o</span></code> for the output directory.
+For the full flag reference and override options, see <a class="reference internal" href="../guides/cli_usage.html"><span class="doc">CLI usage</span></a>.</p>
+</section>
+<section id="first-analysis">
+<h2>First analysis<a class="headerlink" href="#first-analysis" title="Link to this heading"></a></h2>
+<p>You have a complete sandbox environment in the repository. Navigate to the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> directory in your terminal. This folder contains sample ROOT files, full YAML configurations, and Python logic files.</p>
+<p>You can run the entire pipeline—dumping filtered events to <code class="docutils literal notranslate"><span class="pre">ROOT/Parquet</span></code> and filling histograms—using the provided bash script which use the CLI YDANA-HEP interface:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/
+./run_analysis.sh<span class="w"> </span>--filesets
+</pre></div>
+</div>
+<p><strong>What just happened?</strong></p>
+<ol class="arabic simple">
+<li><p>The CLI read <code class="docutils literal notranslate"><span class="pre">yamls/run_config.yaml</span></code>.</p></li>
+<li><p>It lazily loaded the datasets defined in <code class="docutils literal notranslate"><span class="pre">filesets.yaml</span></code>.</p></li>
+<li><p>It applied the cuts and preprocessors from <code class="docutils literal notranslate"><span class="pre">pre_steps.yaml</span></code>.</p></li>
+<li><p>It built the task graph for the histograms in <code class="docutils literal notranslate"><span class="pre">histograms.yaml</span></code>.</p></li>
+<li><p>It executed the graph and saved your outputs to the <code class="docutils literal notranslate"><span class="pre">results/</span></code> folder!</p></li>
+</ol>
+<p>For a deeper dive into how to bypass the CLI and write custom Python scripts, check out the <a class="reference internal" href="../../examples/programmatic-api.html"><span class="doc">Programmatic API usage</span></a> notebook.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yaml_basics.html" class="btn btn-neutral float-right" title="YAML Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

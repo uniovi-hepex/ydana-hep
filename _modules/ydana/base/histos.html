@@ -1,0 +1,1233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ydana.base.histos &mdash; YDANA-HEP 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            YDANA-HEP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/getting-started/index.html">Getting started</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/core_concepts/index.html">Core Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/guides/index.html">Guides</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/reference/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/troubleshooting/index.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">YDANA-HEP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ydana.base.histos</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ydana.base.histos</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Histogram module — ``Histogram`` wrapper + fill / I/O helpers.</span>
+
+<span class="sd">The core class is :class:`Histogram`, which pairs a ``hist.dask.Hist``</span>
+<span class="sd">with a fill function.  The fill function maps an events array to a dict of named arrays, which</span>
+<span class="sd">are then passed as kwargs to the underlying histogram&#39;s ``fill()`` method.  The type of the events</span>
+<span class="sd">array determines the fill path:</span>
+
+<span class="sd">- ``dask_awkward.Array`` → lazy fill via ``hist.dask.Hist``; builds a Dask task graph inside the</span>
+<span class="sd">  histogram, no compute triggered.  Call ``dask.compute(histo.h)`` (or use the module-level </span>
+<span class="sd">  :func:`fill`) to materialise.</span>
+<span class="sd">- Any other array type (e.g. ``awkward.Array``, numpy) → synchronous fill via a ``hist.Hist``</span>
+<span class="sd">  accumulator (no Dask).  All proxied attributes (``values()``, ``plot1d()``, etc.) then reflect</span>
+<span class="sd">  this eagerly filled histogram.</span>
+
+<span class="sd">Module-level functions</span>
+<span class="sd">----------------------</span>
+<span class="sd">Histogram   : wrapper (public; usually imported directly by users)</span>
+<span class="sd">expand      : parametrised histogram factory (public; replaces ``foreach``)</span>
+<span class="sd">fill        : lazy or eager fill + optional ROOT output (public)</span>
+<span class="sd">to_root     : write materialised histograms to ROOT (public)</span>
+<span class="sd">from_config : load histogram list from Config (internal only)</span>
+
+<span class="sd">Lazy fill mechanics</span>
+<span class="sd">-------------------</span>
+<span class="sd">``histo.h`` is already a ``hist.dask.Hist`` from ``__init__``.</span>
+<span class="sd">Calling ``histo.fill(dak_events)`` calls ``self.h.fill(**dict_of_dak_cols)``</span>
+<span class="sd">which builds a Dask task graph inside ``self.h`` — **no compute**.</span>
+
+<span class="sd">``dask.compute(*[h.h for h in histos])`` triggers a **single** scheduler</span>
+<span class="sd">call that optimises the shared task graph and returns ``list[hist.Hist]``</span>
+<span class="sd">(one materialised histogram per wrapper).</span>
+
+<span class="sd">Per-partition fill</span>
+<span class="sd">------------------</span>
+<span class="sd">Instead of an in-memory tree-reduce, ``events.to_delayed()`` slices the</span>
+<span class="sd">array into individual delayed partitions. Each partition is passed to a</span>
+<span class="sd">delayed worker (``_write_partition_histos``) as an eager ``awkward.Array``.</span>
+<span class="sd">The worker fills standard ``hist.Hist`` objects locally and writes them</span>
+<span class="sd">directly to disk, making the process highly performant and resume-safe.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">importlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">import_module</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">awkward</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ak</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dask</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dask_awkward</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dak</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hist</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hist.dask</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uproot</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.functions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_is_dak</span><span class="p">,</span>
+    <span class="n">color_msg</span><span class="p">,</span>
+    <span class="n">create_outfolder</span><span class="p">,</span>
+    <span class="n">make_dask_sched_kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProgressBarFactory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">get_run_config</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Histogram wrapper</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="Histogram">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.histos.Histogram">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Histogram</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Thin wrapper pairing a ``hist.dask.Hist`` with a fill function.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *axes : hist.axis.*</span>
+<span class="sd">        Axis definitions forwarded directly to ``hist.dask.Hist``.</span>
+<span class="sd">        Axis ``name`` attributes must match the keys returned by *func*.</span>
+<span class="sd">    func : callable(events) -&gt; dict[str, array]</span>
+<span class="sd">        Maps an events array to a ``dict`` of named arrays.</span>
+<span class="sd">        Keys must match the ``name`` attribute of each axis in ``*axes``.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Human label for logging and ROOT output.</span>
+<span class="sd">        Defaults to the ``name`` attribute of the first axis.</span>
+<span class="sd">    storage : bh.storage.*, optional</span>
+<span class="sd">        boost-histogram storage type (e.g. ``hist.storage.Weight()``).</span>
+<span class="sd">        Defaults to ``hist.storage.Double()``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    All ``hist.dask.Hist`` attributes and methods are transparently</span>
+<span class="sd">    proxied via ``__getattr__``:  ``histo.plot1d()``, ``histo.axes``,</span>
+<span class="sd">    ``histo.values()``, ``histo.reset()``, slicing, ``histo.to_hist()``,</span>
+<span class="sd">    etc. all work directly on the wrapper.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    1-D::</span>
+
+<span class="sd">        Histogram(</span>
+<span class="sd">            hist.axis.Regular(20, 0, 1000, name=&quot;pt&quot;, label=r&quot;$p_T$ [GeV]&quot;),</span>
+<span class="sd">            func=lambda ev: {&quot;pt&quot;: ev[&quot;genmuons&quot;][&quot;pt&quot;][:, 0]},</span>
+<span class="sd">            name=&quot;LeadingMuon_pt&quot;,</span>
+<span class="sd">        )</span>
+
+<span class="sd">    Efficiency (``hist.axis.Boolean`` — 2-bin True/False)::</span>
+
+<span class="sd">        Histogram(</span>
+<span class="sd">            hist.axis.Regular(5, -2.5, 2.5, name=&quot;wh&quot;, label=&quot;Wheel&quot;),</span>
+<span class="sd">            hist.axis.Boolean(name=&quot;pass&quot;, label=&quot;Has matched TP&quot;),</span>
+<span class="sd">            func=lambda ev: {</span>
+<span class="sd">                &quot;wh&quot;:   ev[&quot;segments&quot;][&quot;wh&quot;][ev[&quot;segments&quot;][&quot;st&quot;] == 1],</span>
+<span class="sd">                &quot;pass&quot;: ak.num(ev[&quot;segments&quot;][&quot;matched_tps&quot;], axis=-1)</span>
+<span class="sd">                              [ev[&quot;segments&quot;][&quot;st&quot;] == 1] &gt; 0,</span>
+<span class="sd">            },</span>
+<span class="sd">            name=&quot;eff_MB1&quot;,</span>
+<span class="sd">        )</span>
+
+<span class="sd">    Weighted::</span>
+
+<span class="sd">        Histogram(</span>
+<span class="sd">            hist.axis.Regular(20, 0, 1000, name=&quot;pt&quot;),</span>
+<span class="sd">            func=lambda ev: {&quot;pt&quot;: ev[&quot;genmuons&quot;][&quot;pt&quot;][:, 0],</span>
+<span class="sd">                              &quot;weight&quot;: ev[&quot;weight&quot;]},</span>
+<span class="sd">            name=&quot;LeadingMuon_pt_weighted&quot;,</span>
+<span class="sd">            storage=hist.storage.Weight(),</span>
+<span class="sd">        )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">axes</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+        <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]],</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">storage</span><span class="p">:</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="n">storage</span><span class="p">}</span> <span class="k">if</span> <span class="n">storage</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_h</span> <span class="o">=</span> <span class="n">hist</span><span class="o">.</span><span class="n">dask</span><span class="o">.</span><span class="n">Hist</span><span class="p">(</span><span class="o">*</span><span class="n">axes</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="c1"># Accumulator for synchronous (ak.Array / numpy) fills — created on</span>
+        <span class="c1"># first use so it carries the same axes + storage as self.h.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eager_h</span><span class="p">:</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Histogram.fill">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.histos.Histogram.fill">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">Array</span> <span class="o">|</span> <span class="n">dak</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fill from events.</span>
+
+<span class="sd">        Calls ``self.func(events)`` -&gt; dict of named arrays, then fills the</span>
+<span class="sd">        appropriate underlying histogram:</span>
+
+<span class="sd">        - ``dak.Array`` inputs -&gt; lazy fill via ``hist.dask.Hist``; builds a</span>
+<span class="sd">          Dask task graph inside ``self.h``, no compute triggered.</span>
+<span class="sd">          Call ``dask.compute(histo.h)`` (or use the module-level</span>
+<span class="sd">          :func:`fill`) to materialise.</span>
+<span class="sd">        - Any other input (``ak.Array``, numpy, ...) -&gt; synchronous fill via a</span>
+<span class="sd">          ``hist.Hist`` accumulator (``self._eager_h``).  All proxied</span>
+<span class="sd">          attributes (``values()``, ``plot1d()``, etc.) then reflect this</span>
+<span class="sd">          eagerly filled histogram.</span>
+
+<span class="sd">        Extra keyword arguments (``weight=``, ``sample=``, ``threads=``, ...)</span>
+<span class="sd">        are forwarded to the underlying ``fill()`` call.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_is_dak</span><span class="p">(</span><span class="n">events</span><span class="p">):</span>
+            <span class="c1"># Lazy path -- hist.dask.Hist accumulates the Dask task graph.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_h</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Eager path -- plain hist.Hist for synchronous filling.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eager_h</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_eager_h</span> <span class="o">=</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist</span><span class="p">(</span>
+                    <span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h</span><span class="o">.</span><span class="n">axes</span><span class="p">),</span>
+                    <span class="n">storage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_h</span><span class="o">.</span><span class="n">storage_type</span><span class="p">(),</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_eager_h</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+        <span class="c1"># Proxy attribute lookups to the appropriate underlying histogram:</span>
+        <span class="c1">#   - _eager_h (hist.Hist) when populated via eager fills.</span>
+        <span class="c1">#   - self._h   (hist.dask.Hist) otherwise (lazy / unfilled).</span>
+        <span class="c1"># Only invoked when the normal per-instance attribute lookup fails.</span>
+
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__dask_&quot;</span><span class="p">):</span>
+            <span class="c1"># Prevent Dask from duck-typing this wrapper as a task graph!</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">eager_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_eager_h&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">eager_h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">eager_h</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_h&quot;</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Histogram(name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2">)&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist</span> <span class="o">|</span> <span class="n">hist</span><span class="o">.</span><span class="n">dask</span><span class="o">.</span><span class="n">Hist</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the active underlying histogram object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eager_h</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eager_h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># expand — parametrised histogram factory</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="expand">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.histos.expand">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">expand</span><span class="p">(</span><span class="n">histo</span><span class="p">:</span> <span class="n">Histogram</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Histogram</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a list of :class:`Histogram` objects over a parameter range.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    histo : Histogram</span>
+<span class="sd">        Template histogram to use for each value. `func` should be written to accept the parameter</span>
+<span class="sd">        as a kwarg, e.g. ``st=1``.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Parameter values to expand over (e.g. station numbers ``st=[1, 2, 3, 4]``).</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    ::</span>
+
+<span class="sd">        import hist, awkward as ak</span>
+<span class="sd">        from ydana.base.histos import expand, Histogram</span>
+
+<span class="sd">        histos += expand(</span>
+<span class="sd">            histo=Histogram(</span>
+<span class="sd">                hist.axis.Regular(5, -2.5, 2.5, name=&quot;wh&quot;),</span>
+<span class="sd">                hist.axis.Boolean(name=&quot;pass&quot;),</span>
+<span class="sd">                func=lambda ev, st=st: {</span>
+<span class="sd">                    &quot;wh&quot;:   ev[&quot;segments&quot;][&quot;wh&quot;][ev[&quot;segments&quot;][&quot;st&quot;] == st],</span>
+<span class="sd">                    &quot;pass&quot;: ak.num(ev[&quot;segments&quot;][&quot;matched_tps&quot;], axis=-1)</span>
+<span class="sd">                                  [ev[&quot;segments&quot;][&quot;st&quot;] == st] &gt; 0,</span>
+<span class="sd">                },</span>
+<span class="sd">                name=f&quot;eff_MB{st}&quot;,</span>
+<span class="sd">            ),</span>
+<span class="sd">            st=[1, 2, 3, 4],</span>
+<span class="sd">        )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">Histogram</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">histo</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+            <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ev</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">:</span> <span class="n">histo</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">}),</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">histo</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">}),</span>
+            <span class="n">storage</span><span class="o">=</span><span class="n">histo</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">storage_type</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">]</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># from_config — internal histogram loading from Config</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="from_config">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.histos.from_config">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Histogram</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load histogram list from a Config instance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config : Config or None</span>
+<span class="sd">        Configuration object with histogram loading metadata.</span>
+<span class="sd">        If ``None``, uses :data:`~ydana.base.config.RUN_CONFIG`.</span>
+
+<span class="sd">        Expected attributes/keys:</span>
+
+<span class="sd">        - ``histo_sources`` : list[str]</span>
+<span class="sd">            Dotted module paths to load histograms from.</span>
+<span class="sd">        - ``histo_names`` : list[str], optional</span>
+<span class="sd">            If provided, only histograms with these names are included.</span>
+<span class="sd">        - ``histograms`` : object or dict, optional</span>
+<span class="sd">            Container holding ``histo_sources`` and ``histo_names``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list[Histogram]</span>
+<span class="sd">        Histogram instances from config, optionally filtered by name.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If *config* is ``None`` and global :data:`RUN_CONFIG` was not set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_import_and_collect</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Histogram</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Import module and extract Histogram list.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">module</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;histos&quot;</span><span class="p">,</span> <span class="p">[])</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Source module </span><span class="si">{</span><span class="n">source</span><span class="si">!r}</span><span class="s2"> has no &#39;histos&#39; attribute or it is empty. Skipping.&quot;</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="p">[]</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">good_result</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">result</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">Histogram</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">good_result</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Source module </span><span class="si">{</span><span class="n">source</span><span class="si">!r}</span><span class="s2"> has a &#39;histos&#39; attribute, but it contains &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;non-Histogram items. Only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">good_result</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="si">}</span><span class="s2"> are valid and &quot;</span>
+                        <span class="s2">&quot;will be used.&quot;</span><span class="p">,</span>
+                        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Histogram</span><span class="p">):</span>
+                <span class="n">good_result</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Source module </span><span class="si">{</span><span class="n">source</span><span class="si">!r}</span><span class="s2"> has a &#39;histos&#39; attribute, but it is neither a list &quot;</span>
+                    <span class="s2">&quot;nor a Histogram instance.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">good_result</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to load histograms from </span><span class="si">{</span><span class="n">source</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">get_run_config</span><span class="p">()</span>
+
+    <span class="n">h_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;histograms&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">cfg</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h_cfg</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="n">h_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;histo_sources&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="n">names_filter</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">h_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;histo_names&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">h_cfg</span><span class="p">,</span> <span class="s2">&quot;histo_sources&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])</span>
+        <span class="n">names_filter</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">h_cfg</span><span class="p">,</span> <span class="s2">&quot;histo_names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])</span>
+
+    <span class="c1"># Load all histograms from all sources (flatten via loop)</span>
+    <span class="n">all_histos</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Histogram</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">:</span>
+        <span class="n">all_histos</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_import_and_collect</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+
+    <span class="c1"># Filter by name if requested</span>
+    <span class="k">if</span> <span class="n">names_filter</span><span class="p">:</span>
+        <span class="n">all_histos</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_histos</span> <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">names_filter</span><span class="p">]</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_histos</span><span class="p">}</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">names_filter</span> <span class="o">-</span> <span class="n">found</span>
+        <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The following histograms were not found in any source: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">missing</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_histos</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># to_root — write histograms to a ROOT file</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="to_root">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.histos.to_root">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_root</span><span class="p">(</span>
+    <span class="n">histos</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">object</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write histograms to a ROOT file via uproot.</span>
+
+<span class="sd">    Accepts :class:`Histogram` wrappers, dictionaries of wrappers,</span>
+<span class="sd">    or raw ``hist.Hist`` / ``bh.Histogram`` objects. uproot&#39;s UHI dispatch</span>
+<span class="sd">    auto-selects ``TH1D`` / ``TH2D`` / ``TH3D`` (up to 3 dimensions).</span>
+
+<span class="sd">    If a histogram contains a ``hist.axis.Boolean`` axis (e.g., for efficiency),</span>
+<span class="sd">    it is automatically split into two ROOT histograms:</span>
+<span class="sd">    ``&lt;name&gt;_num`` (True) and ``&lt;name&gt;_den`` (sum of True + False).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    histos : dict, list, Histogram, or hist.Hist</span>
+<span class="sd">        The histogram(s) to save. Can be a single object, a list of objects,</span>
+<span class="sd">        or a dictionary mapping names to objects.</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Output ``.root`` file path. Parent directories are created if needed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">create_outfolder</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span>
+
+    <span class="c1"># 1. Normalize input into an iterable of (name, histogram) pairs</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">histos</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">histos</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Wrap single objects in a list so we can safely iterate</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">histos</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">histos</span> <span class="o">=</span> <span class="p">[</span><span class="n">histos</span><span class="p">]</span>
+        <span class="c1"># Auto-generate names for list items if they don&#39;t have one</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">h</span><span class="p">)),</span> <span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">histos</span><span class="p">)</span>
+
+    <span class="c1"># 2. Open file and write (Zero repetition!)</span>
+    <span class="k">with</span> <span class="n">uproot</span><span class="o">.</span><span class="n">recreate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="c1"># Extract hist object</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">h</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">Histogram</span><span class="p">)</span> <span class="k">else</span> <span class="n">h</span>
+
+            <span class="c1"># Dynamically search for a Boolean axis</span>
+            <span class="n">bool_axis_name</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">hist</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">Boolean</span><span class="p">):</span>
+                    <span class="n">bool_axis_name</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">name</span>
+                    <span class="k">break</span>  <span class="c1"># Found it, stop looking</span>
+
+            <span class="k">if</span> <span class="n">bool_axis_name</span><span class="p">:</span>
+                <span class="c1"># UHI dict-slicing: Safely slices the axis by name, regardless of position!</span>
+                <span class="n">f</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_num&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[{</span><span class="n">bool_axis_name</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]</span>
+                <span class="n">f</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_den&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[{</span><span class="n">bool_axis_name</span><span class="p">:</span> <span class="nb">sum</span><span class="p">}]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># _write_partition_histos — delayed helper for per-partition ROOT output</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="nd">@dask</span><span class="o">.</span><span class="n">delayed</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_write_partition_histos</span><span class="p">(</span>
+    <span class="n">eager_events</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">histos_config</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Histogram</span><span class="p">],</span>
+    <span class="n">out_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write one partition&#39;s materialised histograms to a ROOT file.</span>
+
+<span class="sd">    This is a ``@dask.delayed`` worker called by :func:`fill` in</span>
+<span class="sd">    per-partition mode. It receives one fully computed ``awkward.Array``</span>
+<span class="sd">    partition, fills standard ``hist.Hist`` objects locally, and saves them</span>
+<span class="sd">    to disk directly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 1. Fill standard (non-dask) histograms locally</span>
+    <span class="n">filled_hists</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">h_cfg</span> <span class="ow">in</span> <span class="n">histos_config</span><span class="p">:</span>
+        <span class="n">h_eager</span> <span class="o">=</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist</span><span class="p">(</span><span class="o">*</span><span class="n">h_cfg</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="n">h_cfg</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">storage_type</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">h_cfg</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">eager_events</span><span class="p">)</span>
+            <span class="n">h_eager</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="o">**</span><span class="n">cols</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Problem filling histogram </span><span class="si">{</span><span class="n">h_cfg</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> in partition: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">filled_hists</span><span class="p">[</span><span class="n">h_cfg</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">h_eager</span>
+
+    <span class="c1"># 2. Save to ROOT</span>
+    <span class="n">to_root</span><span class="p">(</span><span class="n">filled_hists</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># fill — orchestrate lazy or eager fill + ROOT output</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="fill">
+<a class="viewcode-back" href="../../../src/reference/base.html#ydana.base.histos.fill">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span>
+    <span class="n">histos</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Histogram</span><span class="p">],</span>
+    <span class="n">events</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">Array</span> <span class="o">|</span> <span class="n">dak</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">outfolder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./results&quot;</span><span class="p">,</span>
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">per_partition</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">ncores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fill histograms from events and (optionally) write ROOT output.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    histos : list[Histogram]</span>
+<span class="sd">        Histogram wrapper definitions to fill.</span>
+<span class="sd">    events : dak.Array or ak.Array</span>
+<span class="sd">        Event data. The type determines the fill path:</span>
+
+<span class="sd">        - ``dak.Array`` → lazy; a single ``dask.compute`` is triggered</span>
+<span class="sd">          at the end, optimising the shared task graph across all histograms.</span>
+<span class="sd">        - ``ak.Array``  → synchronous fill via boost-histogram (no Dask).</span>
+<span class="sd">    outfolder : str</span>
+<span class="sd">        Root output directory. A ``histograms/`` sub-folder is created.</span>
+<span class="sd">    tag : str</span>
+<span class="sd">        String appended to the output filename,</span>
+<span class="sd">        e.g. ``&quot;_v2&quot;`` → ``histograms_v2.root``.</span>
+<span class="sd">    per_partition : bool</span>
+<span class="sd">        (*Lazy path only*) Write one ROOT file per Dask partition under</span>
+<span class="sd">        ``&lt;outfolder&gt;/histograms/histograms{tag}_NNNN.root``.</span>
+<span class="sd">        Existing files are skipped (resume-safe).</span>
+<span class="sd">        Bypasses tree-reduce by mapping delayed tasks over array partitions.</span>
+<span class="sd">    overwrite : bool</span>
+<span class="sd">        Re-process and overwrite existing per-partition files.</span>
+<span class="sd">        Ignored when *per_partition* is ``False``.</span>
+<span class="sd">    ncores : int</span>
+<span class="sd">        Scheduler hint: ``1`` = synchronous, ``-1`` = dask default,</span>
+<span class="sd">        ``&gt;1`` = N local process workers.</span>
+<span class="sd">    label : str</span>
+<span class="sd">        Human-readable label for log messages (e.g. dataset name).</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        Whether to print log messages about the fill progress and output paths.</span>
+<span class="sd">    save : bool</span>
+<span class="sd">        Whether to save the filled histograms to ROOT files. Set to ``False`` to</span>
+<span class="sd">        only perform the fill in-memory and return the results without writing to disk.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, hist.Hist]</span>
+<span class="sd">        Dictionary mapping histogram names to their materialised objects.</span>
+<span class="sd">        Returns an empty dictionary ``{}`` for per-partition mode (results</span>
+<span class="sd">        are saved directly to disk to preserve memory).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Lazy (dak.Array) — in-memory path**:</span>
+<span class="sd">    Each ``histo.fill(events)`` call invokes ``hist.dask.Hist.fill`` with</span>
+<span class="sd">    ``dak.Array`` kwargs, appending to the internal task graph.</span>
+<span class="sd">    ``dask.compute(*[h.h for h in histos])`` materialises everything in a</span>
+<span class="sd">    single scheduler pass. The original wrapper objects are updated **in-place**,</span>
+<span class="sd">    and a dictionary of the final objects is returned.</span>
+
+<span class="sd">    **Lazy (dak.Array) — per-partition path**:</span>
+<span class="sd">    Uses ``events.to_delayed()`` to slice the array. A delayed worker</span>
+<span class="sd">    receives the eager ``awkward.Array``, computes the columns, fills</span>
+<span class="sd">    standard histograms locally, and writes directly to disk. Original</span>
+<span class="sd">    in-memory wrappers remain empty.</span>
+
+<span class="sd">    **Eager (ak.Array)**:</span>
+<span class="sd">    The wrapper bypasses Dask entirely and routes the array to a synchronous</span>
+<span class="sd">    ``hist.Hist`` accumulator. The original wrapper objects are updated</span>
+<span class="sd">    **in-place**, and a dictionary of the final objects is returned.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">histos</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No histograms provided to fill.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ── 1. Sanity Checks ────────────────────────────────────────────────────</span>
+    <span class="k">if</span> <span class="n">events</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No events provided to fill histograms.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="n">events</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Events array has no columns/fields.&quot;</span><span class="p">)</span>
+
+    <span class="n">_is_eager</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_dak</span><span class="p">(</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Events array is empty (0 rows). Skipping histogram fill.&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="n">_is_eager</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="c1"># ────────────────────────────────────────────────────────────────────────</span>
+
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outfolder</span><span class="p">,</span> <span class="s2">&quot;histograms&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">save</span> <span class="ow">or</span> <span class="n">per_partition</span><span class="p">:</span>
+        <span class="n">create_outfolder</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
+
+    <span class="c1"># Log label includes optional user-provided label for context (e.g. dataset name)</span>
+    <span class="n">log_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[fill|</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;[fill]&quot;</span>
+    <span class="c1"># Base kwargs to avoid repeating progress bar boilerplate</span>
+    <span class="n">pbar_base</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;show&quot;</span><span class="p">:</span> <span class="n">verbose</span><span class="p">,</span>
+        <span class="s2">&quot;ascii&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;delay&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+    <span class="p">}</span>  <span class="c1"># dealay to avoid pbar of the first dask graph building tasks loop</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_safe_fill</span><span class="p">(</span><span class="n">h</span><span class="p">:</span> <span class="n">Histogram</span><span class="p">,</span> <span class="n">ev</span><span class="p">:</span> <span class="n">ak</span><span class="o">.</span><span class="n">Array</span> <span class="o">|</span> <span class="n">dak</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper to keep the fill loops clean.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Problem filling histogram </span><span class="si">{</span><span class="n">h</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Eager path — ak.Array (no Dask at all)</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+
+    <span class="k">if</span> <span class="n">_is_eager</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> Filling histograms&quot;</span><span class="p">,</span> <span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pbar_base</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;delay&quot;</span><span class="p">)</span>  <span class="c1"># No need to delay the progress bar in the eager path</span>
+        <span class="k">with</span> <span class="n">ProgressBarFactory</span><span class="p">(</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;eager&quot;</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">histos</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot; hist&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">pbar_base</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">pbar</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">histo</span> <span class="ow">in</span> <span class="n">histos</span><span class="p">:</span>
+                <span class="n">_safe_fill</span><span class="p">(</span><span class="n">histo</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
+                <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;obj&quot;</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">_eager_h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">histos</span><span class="p">}</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Lazy path — dak.Array</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sched_kwargs</span><span class="p">,</span> <span class="n">sched_label</span> <span class="o">=</span> <span class="n">make_dask_sched_kwargs</span><span class="p">(</span><span class="n">ncores</span><span class="p">)</span>
+        <span class="n">npartitions</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">npartitions</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">color_msg</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">histos</span><span class="p">)</span><span class="si">}</span><span class="s2"> hist(s) × </span><span class="si">{</span><span class="n">npartitions</span><span class="si">}</span><span class="s2"> partition(s) | </span><span class="si">{</span><span class="n">sched_label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+                <span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># -- Per-partition: bypasses tree-reduce via delayed mapping ----------</span>
+        <span class="k">if</span> <span class="n">per_partition</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">save</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;per_partition=True inherently saves files. `save=False` ignored.&quot;</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="n">pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">npartitions</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+            <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">to_delayed</span><span class="p">()):</span>
+                <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;histograms</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="n">pad</span><span class="p">)</span><span class="si">}</span><span class="s2">.root&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out_path</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                        <span class="n">color_msg</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> Skipping </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2"> (resume-safe)&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+                            <span class="mi">1</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_write_partition_histos</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">histos</span><span class="p">,</span> <span class="n">out_path</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">tasks</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="n">color_msg</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> All partition files exist. Nothing to do.&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;green&quot;</span><span class="p">,</span>
+                        <span class="mi">1</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">return</span> <span class="p">{}</span>
+
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> Processing partitions&quot;</span><span class="p">,</span> <span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ProgressBarFactory</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lazy&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot; part&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">pbar_base</span><span class="p">):</span>
+                <span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">,</span> <span class="o">**</span><span class="n">sched_kwargs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="n">color_msg</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> Partitions saved → histograms</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">_...root&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;green&quot;</span><span class="p">,</span>
+                    <span class="mi">1</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">results</span>  <span class="c1"># Empty dict; results are saved directly to disk</span>
+
+        <span class="c1"># -- In-memory: hist.dask.Hist accumulates the task graph ----------</span>
+        <span class="c1"># Build graph</span>
+        <span class="k">for</span> <span class="n">histo</span> <span class="ow">in</span> <span class="n">histos</span><span class="p">:</span>
+            <span class="n">_safe_fill</span><span class="p">(</span><span class="n">histo</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
+
+        <span class="c1"># Compute graph</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> Processing graph nodes&quot;</span><span class="p">,</span> <span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">return_str</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">ProgressBarFactory</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lazy&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot; node&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">pbar_base</span><span class="p">):</span>
+            <span class="n">computed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dask</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">histos</span><span class="p">],</span> <span class="o">**</span><span class="n">sched_kwargs</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">histos</span><span class="p">,</span> <span class="n">computed</span><span class="p">):</span>
+            <span class="n">wrapper</span><span class="o">.</span><span class="n">_eager_h</span> <span class="o">=</span> <span class="n">res</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">wrapper</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Unified Save &amp; Return</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;histograms</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">.root&quot;</span><span class="p">)</span>
+        <span class="n">to_root</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">color_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_label</span><span class="si">}</span><span class="s2"> histograms saved → </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Daniel Estrada, Universidad de Oviedo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
