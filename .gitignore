@@ -11,3 +11,4 @@
 *pytest*
 *.lock
 *ruff*
+*build*

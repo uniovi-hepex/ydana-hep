@@ -48,7 +48,7 @@ class ParticleRecord(ak.Record):
         return self.layout.at
 
     @staticmethod
-    def ids_from_array(array: ak.Array) -> ak.Array:
+    def ids_from_array(array: ak.Array) -> ak.Array: # ESTA MALO REVISAR
         """Return the ``id`` column for an array of ``ParticleRecord`` elements.
 
         Array-level equivalent of :attr:`id`, used when operating on a full
@@ -137,5 +137,5 @@ class ParticleArray(ak.Array):
 # ---------------------------------------------------------------------------
 behavior: dict = {
     "Particle": ParticleRecord,
-    "*Particle": ParticleArray,
+    ("*", "Particle"): ParticleArray,
 }

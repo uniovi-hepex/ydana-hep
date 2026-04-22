@@ -14,7 +14,7 @@ __all__ = [
 ]
 
 try:
-    __version__ = version("ydana")
+    __version__ = version("ydana-hep")
 except PackageNotFoundError:
     __version__ = "0.1.0"
 
